@@ -12,3 +12,7 @@ add_library(librtl ${RTL})
 file(GLOB SOURCE "source/*.cpp" "source/*.h" "source/*.v")
 add_executable(vgmverilator ${SOURCE})
 target_link_libraries(vgmverilator libverilator librtl)
+
+add_custom_command(TARGET vgmverilator PRE_BUILD COMMAND
+    "verilator-3.841/verilator.exe" "--compiler" "msvc" "--cc" "source/rtl.v"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
