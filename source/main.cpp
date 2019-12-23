@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include "tune.h"
-#include "Vrtl.h"
+#include "Vym2149.h"
 
 static const uint64_t MCLK = 1789750;
 static const uint64_t SAMPLE_RATE = 44100;
@@ -24,7 +24,7 @@ int main(int argc, char **args) {
   uint64_t samples_done = 0;
 
   // create our chip
-  Vrtl ym2149;
+  Vym2149 ym2149;
   ym2149.in_clk = 0;
   ym2149.in_reg = 0;
   ym2149.in_val = 0;

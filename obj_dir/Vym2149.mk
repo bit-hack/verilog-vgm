@@ -2,9 +2,9 @@
 # DESCRIPTION: Verilator output: Makefile for building Verilated archive or executable
 #
 # Execute this makefile from the object directory:
-#    make -f Vrtl.mk
+#    make -f Vym2149.mk
 
-default: Vrtl__ALL.a
+default: Vym2149__ALL.a
 
 ### Constants...
 # Perl executable (from $PERL)
@@ -34,9 +34,9 @@ VM_SC_TARGET_ARCH = mingw32
 
 ### Vars...
 # Design prefix (from --prefix)
-VM_PREFIX = Vrtl
+VM_PREFIX = Vym2149
 # Module prefix (from --prefix)
-VM_MODPREFIX = Vrtl
+VM_MODPREFIX = Vym2149
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 
@@ -52,7 +52,7 @@ VM_USER_DIR = \
 
 ### Default rules...
 # Include list of all generated classes
-include Vrtl_classes.mk
+include Vym2149_classes.mk
 # Include global rules
 include $(VERILATOR_ROOT)/include/verilated.mk
 

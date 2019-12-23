@@ -3,16 +3,16 @@
 //
 // Internal details; most calling programs do not need this header
 
-#ifndef _Vrtl__Syms_H_
-#define _Vrtl__Syms_H_
+#ifndef _Vym2149__Syms_H_
+#define _Vym2149__Syms_H_
 
 #include "verilated.h"
 
 // INCLUDE MODULE CLASSES
-#include "Vrtl.h"
+#include "Vym2149.h"
 
 // SYMS CLASS
-class Vrtl__Syms : public VerilatedSyms {
+class Vym2149__Syms : public VerilatedSyms {
   public:
     
     // LOCAL STATE
@@ -22,15 +22,15 @@ class Vrtl__Syms : public VerilatedSyms {
     //char	__VpadToAlign10[6];
     
     // SUBCELL STATE
-    Vrtl*                          TOPp;
+    Vym2149*                       TOPp;
     
     // COVERAGE
     
     // SCOPE NAMES
     
     // CREATORS
-    Vrtl__Syms(Vrtl* topp, const char* namep);
-    ~Vrtl__Syms() {};
+    Vym2149__Syms(Vym2149* topp, const char* namep);
+    ~Vym2149__Syms() {};
     
     // METHODS
     inline const char* name() { return __Vm_namep; }

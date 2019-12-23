@@ -12,7 +12,7 @@ module ym2149(
 
   // volume table ROM
   reg [15:0] AMP_TABLE[32];
-  initial $readmemh("AMP_TABLE.txt", AMP_TABLE);
+  initial $readmemh("ym2149_dac.txt", AMP_TABLE);
 
   // track change in WR
   reg OLD_WR;
@@ -101,7 +101,7 @@ module ym2149(
       if (CLK_DIV == 4'd0) begin
         // update tone generator A
         if (CA_TONE == 0) begin
-            CA_OUT <= ~CA_OUT;
+            CA_BIT <= ~CA_BIT;
             CA_TONE <= CA_FREQ;
         end else begin
             CA_TONE <= CA_TONE - 12'b1;
@@ -109,7 +109,7 @@ module ym2149(
 
         // update tone generator B
         if (CB_TONE == 0) begin
-            CB_OUT <= ~CB_OUT;
+            CB_BIT <= ~CB_BIT;
             CB_TONE <= CB_FREQ;
         end else begin
             CB_TONE <= CB_TONE - 12'b1;
@@ -117,7 +117,7 @@ module ym2149(
 
         // update tone generator C
         if (CC_TONE == 0) begin
-            CC_OUT <= ~CC_OUT;
+            CB_BIT <= ~CB_BIT;
             CC_TONE <= CC_FREQ;
         end else begin
             CC_TONE <= CC_TONE - 12'b1;
@@ -139,8 +139,8 @@ module ym2149(
     OLD_WR <= in_wr;
   end
 
-  assign CA_MIX = AMP_TABLE[{CA_OUT, CA_AMP}];
-  assign CB_MIX = AMP_TABLE[{CB_OUT, CB_AMP}];
-  assign CC_MIX = AMP_TABLE[{CC_OUT, CC_AMP}];
+  assign CA_MIX = AMP_TABLE[{CA_BIT, CA_AMP}];
+  assign CB_MIX = AMP_TABLE[{CB_BIT, CB_AMP}];
+  assign CC_MIX = AMP_TABLE[{CC_BIT, CC_AMP}];
 
 endmodule

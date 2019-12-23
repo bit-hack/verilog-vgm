@@ -1,11 +1,11 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "Vrtl__Syms.h"
-#include "Vrtl.h"
+#include "Vym2149__Syms.h"
+#include "Vym2149.h"
 
 // FUNCTIONS
-Vrtl__Syms::Vrtl__Syms(Vrtl* topp, const char* namep)
+Vym2149__Syms::Vym2149__Syms(Vym2149* topp, const char* namep)
 	// Setup locals
 	: __Vm_namep(namep)
 	, __Vm_activity(false)

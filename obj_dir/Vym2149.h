@@ -5,15 +5,15 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef _Vrtl_H_
-#define _Vrtl_H_
+#ifndef _Vym2149_H_
+#define _Vym2149_H_
 
 #include "verilated.h"
-class Vrtl__Syms;
+class Vym2149__Syms;
 
 //----------
 
-VL_MODULE(Vrtl) {
+VL_MODULE(Vym2149) {
   public:
     // CELLS
     // Public to allow access to /*verilator_public*/ items;
@@ -33,9 +33,9 @@ VL_MODULE(Vrtl) {
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     VL_SIG8(v__DOT__OLD_WR,0,0);
-    VL_SIG8(v__DOT__CA_OUT,0,0);
-    VL_SIG8(v__DOT__CB_OUT,0,0);
-    VL_SIG8(v__DOT__CC_OUT,0,0);
+    VL_SIG8(v__DOT__CA_BIT,0,0);
+    VL_SIG8(v__DOT__CB_BIT,0,0);
+    VL_SIG8(v__DOT__CC_BIT,0,0);
     VL_SIG8(v__DOT__CA_ENABLE,0,0);
     VL_SIG8(v__DOT__CB_ENABLE,0,0);
     VL_SIG8(v__DOT__CC_ENABLE,0,0);
@@ -66,22 +66,22 @@ VL_MODULE(Vrtl) {
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
     //char	__VpadToAlign140[4];
-    Vrtl__Syms*	__VlSymsp;		// Symbol table
+    Vym2149__Syms*	__VlSymsp;		// Symbol table
     
     // PARAMETERS
     // Parameters marked /*verilator public*/ for use by application code
     
     // CONSTRUCTORS
   private:
-    Vrtl& operator= (const Vrtl&);	///< Copying not allowed
-    Vrtl(const Vrtl&);	///< Copying not allowed
+    Vym2149& operator= (const Vym2149&);	///< Copying not allowed
+    Vym2149(const Vym2149&);	///< Copying not allowed
   public:
     /// Construct the model; called by application code
     /// The special name  may be used to make a wrapper with a
     /// single model invisible WRT DPI scope names.
-    Vrtl(const char* name="TOP");
+    Vym2149(const char* name="TOP");
     /// Destroy the model; called (often implicitly) by application code
-    ~Vrtl();
+    ~Vym2149();
     
     // USER METHODS
     
@@ -93,19 +93,19 @@ VL_MODULE(Vrtl) {
     
     // INTERNAL METHODS
   private:
-    static void _eval_initial_loop(Vrtl__Syms* __restrict vlSymsp);
+    static void _eval_initial_loop(Vym2149__Syms* __restrict vlSymsp);
   public:
-    void __Vconfigure(Vrtl__Syms* symsp, bool first);
+    void __Vconfigure(Vym2149__Syms* symsp, bool first);
   private:
-    static IData	_change_request(Vrtl__Syms* __restrict vlSymsp);
+    static IData	_change_request(Vym2149__Syms* __restrict vlSymsp);
   public:
-    static void	_eval(Vrtl__Syms* __restrict vlSymsp);
-    static void	_eval_initial(Vrtl__Syms* __restrict vlSymsp);
-    static void	_eval_settle(Vrtl__Syms* __restrict vlSymsp);
-    static void	_initial__TOP(Vrtl__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__1(Vrtl__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__3(Vrtl__Syms* __restrict vlSymsp);
-    static void	_settle__TOP__2(Vrtl__Syms* __restrict vlSymsp);
+    static void	_eval(Vym2149__Syms* __restrict vlSymsp);
+    static void	_eval_initial(Vym2149__Syms* __restrict vlSymsp);
+    static void	_eval_settle(Vym2149__Syms* __restrict vlSymsp);
+    static void	_initial__TOP(Vym2149__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__1(Vym2149__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__3(Vym2149__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__2(Vym2149__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/
