@@ -16,3 +16,7 @@ target_link_libraries(vgmverilator libverilator librtl)
 add_custom_command(TARGET vgmverilator PRE_BUILD COMMAND
     "verilator-3.841/verilator.exe" "--compiler" "msvc" "--cc" "source/ym2149.v"
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_custom_command(TARGET vgmverilator PRE_BUILD COMMAND
+    "verilator-3.841/verilator.exe" "--compiler" "msvc" "--cc" "source/sn76489.v"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})

@@ -36,36 +36,41 @@ VL_MODULE(Vym2149) {
     VL_SIG8(v__DOT__CA_BIT,0,0);
     VL_SIG8(v__DOT__CB_BIT,0,0);
     VL_SIG8(v__DOT__CC_BIT,0,0);
-    VL_SIG8(v__DOT__CA_ENABLE,0,0);
-    VL_SIG8(v__DOT__CB_ENABLE,0,0);
-    VL_SIG8(v__DOT__CC_ENABLE,0,0);
+    VL_SIG8(v__DOT__CA_TONE_ENABLE,0,0);
+    VL_SIG8(v__DOT__CB_TONE_ENABLE,0,0);
+    VL_SIG8(v__DOT__CC_TONE_ENABLE,0,0);
+    VL_SIG8(v__DOT__CA_LFSR_ENABLE,0,0);
+    VL_SIG8(v__DOT__CB_LFSR_ENABLE,0,0);
+    VL_SIG8(v__DOT__CC_LFSR_ENABLE,0,0);
     VL_SIG8(v__DOT__CA_AMP,3,0);
     VL_SIG8(v__DOT__CB_AMP,3,0);
     VL_SIG8(v__DOT__CC_AMP,3,0);
-    VL_SIG8(v__DOT__CLK_DIV,3,0);
-    //char	__VpadToAlign23[1];
+    VL_SIG8(v__DOT__CLK_DIV,2,0);
+    VL_SIG8(v__DOT__NOZ_DIV,2,0);
+    //char	__VpadToAlign27[1];
     VL_SIG16(v__DOT__CA_FREQ,11,0);
+    VL_SIG16(v__DOT__CB_FREQ,11,0);
+    VL_SIG16(v__DOT__CC_FREQ,11,0);
     VL_SIG16(v__DOT__CA_TONE,11,0);
     VL_SIG16(v__DOT__CB_TONE,11,0);
     VL_SIG16(v__DOT__CC_TONE,11,0);
     VL_SIG16(v__DOT__CA_MIX,15,0);
     VL_SIG16(v__DOT__CB_MIX,15,0);
     VL_SIG16(v__DOT__CC_MIX,15,0);
-    VL_SIG16(v__DOT__CB_FREQ,11,0);
-    VL_SIG16(v__DOT__CC_FREQ,11,0);
-    VL_SIG16(v__DOT__MIX_OUT,15,0);
-    //char	__VpadToAlign44[4];
+    //char	__VpadToAlign46[2];
+    VL_SIG(v__DOT__LFSR,16,0);
+    //char	__VpadToAlign52[4];
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
     VL_SIG8(v__DOT__R[16],7,0);
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
     VL_SIG8(__Vclklast__TOP__in_clk,0,0);
-    //char	__VpadToAlign133[3];
+    //char	__VpadToAlign141[3];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
-    //char	__VpadToAlign140[4];
+    //char	__VpadToAlign148[4];
     Vym2149__Syms*	__VlSymsp;		// Symbol table
     
     // PARAMETERS
@@ -106,6 +111,7 @@ VL_MODULE(Vym2149) {
     static void	_sequent__TOP__1(Vym2149__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__3(Vym2149__Syms* __restrict vlSymsp);
     static void	_settle__TOP__2(Vym2149__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__4(Vym2149__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/

@@ -1,6 +1,10 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
+// TODO:
+// - noise period
+// - envelopes
+
 module ym2149(
   input in_clk,
   input in_rst,
@@ -20,15 +24,14 @@ module ym2149(
   // internal registers
   reg [7:0] R [16];
 
-  // channel A frequency
   wire [11:0] CA_FREQ;
-  assign CA_FREQ = { R[1][3:0], R[0][7:0] };
+  wire [11:0] CB_FREQ;
+  wire [11:0] CC_FREQ;
 
   reg [11:0] CA_TONE;
   reg [11:0] CB_TONE;
   reg [11:0] CC_TONE;
 
-  // output bit state from main oscillators
   reg CA_BIT;
   reg CB_BIT;
   reg CC_BIT;
@@ -37,48 +40,54 @@ module ym2149(
   wire [15:0] CB_MIX;
   wire [15:0] CC_MIX;
 
-  // channel B frequency
-  wire [11:0] CB_FREQ;
+  // channel frequencies
+  assign CA_FREQ = { R[1][3:0], R[0][7:0] };
   assign CB_FREQ = { R[3][3:0], R[2][7:0] };
-
-  // channel C frequency
-  wire [11:0] CC_FREQ;
   assign CC_FREQ = { R[5][3:0], R[4][7:0] };
 
-  // channel enabled when '0' and mute when '1'
-  wire CA_ENABLE = R[7][0];
-  wire CB_ENABLE = R[7][1];
-  wire CC_ENABLE = R[7][2];
+  // invert so channel enabled when '1' and mute when '0'
+  wire CA_TONE_ENABLE = ~R[7][0];
+  wire CB_TONE_ENABLE = ~R[7][1];
+  wire CC_TONE_ENABLE = ~R[7][2];
+  wire CA_LFSR_ENABLE = ~R[7][3];
+  wire CB_LFSR_ENABLE = ~R[7][4];
+  wire CC_LFSR_ENABLE = ~R[7][5];
 
   // four bit index into AMP_TABLE
-  wire [3:0] CA_AMP = R[10][3:0];
-  wire [3:0] CB_AMP = R[11][3:0];
-  wire [3:0] CC_AMP = R[12][3:0];
+  wire [3:0] CA_AMP = R[8][3:0];
+  wire [3:0] CB_AMP = R[9][3:0];
+  wire [3:0] CC_AMP = R[10][3:0];
 
   // volume is fixed when '0' or envelope controlled when '1'
-  wire CA_AMP_MODE = R[10][4];
-  wire CB_AMP_MODE = R[11][4];
-  wire CC_AMP_MODE = R[12][4];
+  wire CA_AMP_MODE = R[8][4];
+  wire CB_AMP_MODE = R[9][4];
+  wire CC_AMP_MODE = R[10][4];
+
+  // noise linear feedback shift register
+  reg [16:0] LFSR;
+  wire LFSR_IN = LFSR[0] ^ LFSR[3];
+  wire LFSR_OUT = LFSR[0];
 
   // output mix
   reg [15:0] MIX_OUT;
   assign out_lr = MIX_OUT;
 
-  // clock divider
-  reg [3:0] CLK_DIV;
+  // clock dividers
+  reg [2:0] CLK_DIV;
+  reg [2:0] NOZ_DIV;
 
   always @(posedge in_clk) begin
-    if (in_rst) begin
 
+    if (in_rst) begin
       // clear frequencies
       R[0] <= 8'hff;
       R[1] <= 8'hff;
+      R[2] <= 8'hff;
       R[3] <= 8'hff;
       R[4] <= 8'hff;
       R[5] <= 8'hff;
-      R[6] <= 8'hff;
 
-      // zero amp
+      // zero the amplitude registers
       R[10] <= 8'h00;
       R[11] <= 8'h00;
       R[12] <= 8'h00;
@@ -92,55 +101,67 @@ module ym2149(
       CB_BIT  <= 1'b0;
       CC_BIT  <= 1'b0;
 
+      // reset noise register
+      LFSR <= 17'h1ffff;
+
     end else begin
       // register write
       if ((in_wr == 1'b1) && (OLD_WR == 1'b0)) begin
         R[ in_reg ] <= in_val;
       end
 
-      if (CLK_DIV == 4'd0) begin
+      if (CLK_DIV == 0) begin
+
         // update tone generator A
         if (CA_TONE == 0) begin
-            CA_BIT <= ~CA_BIT;
-            CA_TONE <= CA_FREQ;
+          CA_BIT <= ~CA_BIT;
+          CA_TONE <= CA_FREQ;
         end else begin
-            CA_TONE <= CA_TONE - 12'b1;
+          CA_TONE <= CA_TONE - 12'b1;
         end
 
         // update tone generator B
         if (CB_TONE == 0) begin
-            CB_BIT <= ~CB_BIT;
-            CB_TONE <= CB_FREQ;
+          CB_BIT <= ~CB_BIT;
+          CB_TONE <= CB_FREQ;
         end else begin
-            CB_TONE <= CB_TONE - 12'b1;
+          CB_TONE <= CB_TONE - 12'b1;
         end
 
         // update tone generator C
         if (CC_TONE == 0) begin
-            CB_BIT <= ~CB_BIT;
-            CC_TONE <= CC_FREQ;
+          CC_BIT <= ~CC_BIT;
+          CC_TONE <= CC_FREQ;
         end else begin
-            CC_TONE <= CC_TONE - 12'b1;
+          CC_TONE <= CC_TONE - 12'b1;
         end
 
       end
+
+      if (NOZ_DIV == 0) begin
+        LFSR <= { LFSR_IN, LFSR[16:1] };
+      end
     end
 
-    // increment clock divider
-    CLK_DIV <= CLK_DIV + 4'b1;
+    // increment clock dividers
+    CLK_DIV <= CLK_DIV + 3'b1;
+    NOZ_DIV <= NOZ_DIV + 3'b1;
 
-    // mixdown the channels
-    MIX_OUT <=
-      (CC_ENABLE ? 16'h0 : CC_MIX) +
-      (CB_ENABLE ? 16'h0 : CB_MIX) +
-      (CA_ENABLE ? 16'h0 : CA_MIX);
-
-    // update the register
+    // track the old WR register
     OLD_WR <= in_wr;
   end
 
-  assign CA_MIX = AMP_TABLE[{CA_BIT, CA_AMP}];
-  assign CB_MIX = AMP_TABLE[{CB_BIT, CB_AMP}];
-  assign CC_MIX = AMP_TABLE[{CC_BIT, CC_AMP}];
+  // pre-dac channel mixer
+  wire CA_BIT_MIX = (CA_BIT & CA_TONE_ENABLE) ^ (LFSR_OUT & CA_LFSR_ENABLE);
+  wire CB_BIT_MIX = (CB_BIT & CB_TONE_ENABLE) ^ (LFSR_OUT & CB_LFSR_ENABLE);
+  wire CC_BIT_MIX = (CC_BIT & CC_TONE_ENABLE) ^ (LFSR_OUT & CC_LFSR_ENABLE);
+
+  // per channel mix
+  assign CA_MIX = AMP_TABLE[{CA_BIT_MIX, CA_AMP}];
+  assign CB_MIX = AMP_TABLE[{CB_BIT_MIX, CB_AMP}];
+  assign CC_MIX = AMP_TABLE[{CC_BIT_MIX, CC_AMP}];
+
+  // channel mixer
+  assign MIX_OUT = CA_MIX + CB_MIX + CC_MIX;
 
 endmodule
