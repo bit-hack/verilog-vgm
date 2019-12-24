@@ -32,29 +32,30 @@ VL_MODULE(Vsn76489) {
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     VL_SIG8(v__DOT__OLD_WR,0,0);
-    VL_SIG8(v__DOT__CLK_DIV,3,0);
+    VL_SIG8(v__DOT__CLK_DIV,7,0);
     VL_SIG8(v__DOT__LATCH_CHAN,1,0);
     //char	__VpadToAlign15[1];
+    VL_SIG16(v__DOT__LFSR,15,0);
     VL_SIG16(v__DOT__C0_MIX,15,0);
     VL_SIG16(v__DOT__C1_MIX,15,0);
     VL_SIG16(v__DOT__C2_MIX,15,0);
-    //char	__VpadToAlign22[2];
+    VL_SIG16(v__DOT__NZ_MIX,15,0);
+    //char	__VpadToAlign26[6];
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
-    //char	__VpadToAlign88[2];
     VL_SIG16(v__DOT__C_FREQ[3],9,0);
     VL_SIG16(v__DOT__C_TONE[3],9,0);
-    //char	__VpadToAlign102[2];
     VL_SIG8(v__DOT__C_AMP[4],3,0);
+    //char	__VpadToAlign112[2];
     VL_SIG8(v__DOT__C_BIT[3],0,0);
-    //char	__VpadToAlign111[1];
+    //char	__VpadToAlign117[3];
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
     VL_SIG8(__Vclklast__TOP__in_clk,0,0);
-    //char	__VpadToAlign117[1];
+    //char	__VpadToAlign125[1];
     VL_SIG16(v__DOT____Vlvbound1,9,0);
     VL_SIG16(v__DOT____Vlvbound2,9,0);
-    //char	__VpadToAlign122[2];
+    //char	__VpadToAlign130[2];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
