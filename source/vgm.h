@@ -40,8 +40,17 @@ struct vgm_hdr_t {
   }
 
   uint32_t clock_AY8910() const {
-    assert(version() >= 0x151);
-    const uint8_t *src = _vgm.data() + 0x74;
+    if (version() >= 0x151) {
+      // typical 1789750
+      const uint8_t *src = _vgm.data() + 0x74;
+      return *(uint32_t*)src;
+    }
+    return 0;
+  }
+
+  uint32_t clock_SN76489() const {
+    // typical 3579545
+    const uint8_t *src = _vgm.data() + 0x0c;
     return *(uint32_t*)src;
   }
 
@@ -79,6 +88,10 @@ struct vgm_stream_t {
   bool advance();
 
   virtual void write_ay8910(uint8_t reg, uint8_t value) {
+    // empty
+  }
+
+  virtual void write_sn76489(uint8_t value) {
     // empty
   }
 

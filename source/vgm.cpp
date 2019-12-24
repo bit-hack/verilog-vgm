@@ -50,26 +50,24 @@ bool vgm_stream_t::advance() {
   }
 
   switch (op) {
-  case 0x61:
+  case 0x50:
   {
+    const uint8_t val = read<uint8_t>();
+    write_sn76489(val);
+    break;
+  }
+  case 0x61:
     delay += read<uint16_t>();
     break;
-  }
   case 0x62:
-  {
     delay += 735;
     break;
-  }
   case 0x63:
-  {
     delay += 882;
     break;
-  }
   case 0x66:
-  {
     _ptr = _end;
     break;
-  }
   case 0xa0:
   {
     const uint8_t reg = read<uint8_t>();
