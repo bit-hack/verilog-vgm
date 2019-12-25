@@ -7,12 +7,27 @@
 
 #include "Vym2149.h"
 #include "Vsn76489.h"
+#include "Vnesapu.h"
+
+#if 0
+#define MCLK  clk_ay8910
+#define CHIP  ym2149
+#endif
+#if 0
+#define MCLK  clk_sn76489
+#define CHIP  sn76489
+#endif
+#if 1
+#define MCLK  clk_nesapu
+#define CHIP  nesapu
+#endif
 
 static const uint64_t SAMPLE_RATE = 44100;
 static const uint64_t MAX_SAMPLES = ~0ull;
 
 Vym2149 ym2149;
 Vsn76489 sn76489;
+Vnesapu nesapu;
 
 struct vgm_stream_ext_t: public vgm_stream_t {
 
@@ -30,6 +45,16 @@ struct vgm_stream_ext_t: public vgm_stream_t {
     }
   }
 
+  void write_nesapu(uint8_t reg, uint8_t value) override {
+    nesapu.in_reg = reg;
+    nesapu.in_val = value;
+    for (int i = 0; i < 8; ++i) {
+      nesapu.in_wr = (i < 4);
+      nesapu.in_clk ^= 1;
+      nesapu.eval();
+    }
+  }
+
   void write_sn76489(uint8_t value) override {
     sn76489.in_val = value;
     for (int i = 0; i < 8; ++i) {
@@ -41,14 +66,6 @@ struct vgm_stream_ext_t: public vgm_stream_t {
 };
 
 int main(int argc, char **args) {
-
-#if 0
-#define MCLK  clk_ay8910
-#define CHIP  ym2149
-#else
-#define MCLK  clk_sn76489
-#define CHIP  sn76489
-#endif
 
   // output samples
   std::vector<uint16_t> samples;
@@ -66,15 +83,18 @@ int main(int argc, char **args) {
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/12 Nothing to Lose"
 //    "C:/repos/vgmplayer/music/Herzog_(Sharp_X1_Turbo,_PSG)/05 Back to Square One (Stage 1 Mercie)"
 
-    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
+//    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
+
+    "C:/repos/vgmverilator/music/nesapu/Castlevania_(NES)/02 Vampire Killer"
   )) {
     return 1;
   }
   vgm_hdr_t vgm_hdr{vgm};
   vgm_stream_ext_t vgm_stream{vgm};
 
-  uint64_t clk_ay8910  = vgm_hdr.clock_AY8910();
-  uint64_t clk_sn76489 = vgm_hdr.clock_SN76489();
+  const uint64_t clk_ay8910  = vgm_hdr.clock_AY8910();
+  const uint64_t clk_sn76489 = vgm_hdr.clock_SN76489();
+  const uint64_t clk_nesapu  = vgm_hdr.clock_NESAPU();
 
   // counter for output samples
   uint64_t counter_smp = 0;

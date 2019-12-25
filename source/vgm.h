@@ -54,6 +54,15 @@ struct vgm_hdr_t {
     return *(uint32_t*)src;
   }
 
+  uint32_t clock_NESAPU() const {
+    if (version() >= 0x151) {
+      // typical 1789772
+      const uint8_t *src = _vgm.data() + 0x84;
+      return *(uint32_t*)src;
+    }
+    return 0;
+  }
+
   uint32_t data_offset() const {
     if (version() >= 0x150) {
       const uint8_t *src = _vgm.data() + 0x34;
@@ -92,6 +101,10 @@ struct vgm_stream_t {
   }
 
   virtual void write_sn76489(uint8_t value) {
+    // empty
+  }
+
+  virtual void write_nesapu(uint8_t reg, uint8_t value) {
     // empty
   }
 

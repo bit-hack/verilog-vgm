@@ -75,6 +75,13 @@ bool vgm_stream_t::advance() {
     write_ay8910(reg, val);
     break;
   }
+  case 0xb4:
+  {
+    const uint8_t reg = read<uint8_t>();
+    const uint8_t val = read<uint8_t>();
+    write_nesapu(reg, val);
+    break;
+  }
   default:
     printf("unknown opcode %02x\n", (int)op);
     assert(false);

@@ -143,19 +143,19 @@ void Vym2149::_sequent__TOP__1(Vym2149__Syms* __restrict vlSymsp) {
     VL_SIG(__Vdly__v__DOT__LFSR,16,0);
     // Body
     __Vdly__v__DOT__CC_TONE = vlTOPp->v__DOT__CC_TONE;
-    __Vdly__v__DOT__CB_TONE = vlTOPp->v__DOT__CB_TONE;
     __Vdly__v__DOT__CA_TONE = vlTOPp->v__DOT__CA_TONE;
+    __Vdly__v__DOT__CB_TONE = vlTOPp->v__DOT__CB_TONE;
+    __Vdly__v__DOT__NOZ_DIV = vlTOPp->v__DOT__NOZ_DIV;
     __Vdly__v__DOT__CLK_DIV = vlTOPp->v__DOT__CLK_DIV;
     __Vdly__v__DOT__OLD_WR = vlTOPp->v__DOT__OLD_WR;
-    __Vdly__v__DOT__NOZ_DIV = vlTOPp->v__DOT__NOZ_DIV;
-    __Vdly__v__DOT__CC_BIT = vlTOPp->v__DOT__CC_BIT;
-    __Vdly__v__DOT__CA_BIT = vlTOPp->v__DOT__CA_BIT;
     __Vdly__v__DOT__CB_BIT = vlTOPp->v__DOT__CB_BIT;
+    __Vdly__v__DOT__CA_BIT = vlTOPp->v__DOT__CA_BIT;
+    __Vdly__v__DOT__CC_BIT = vlTOPp->v__DOT__CC_BIT;
     __Vdly__v__DOT__LFSR = vlTOPp->v__DOT__LFSR;
     __Vdlyvset__v__DOT__R__v0 = 0;
     __Vdlyvset__v__DOT__R__v1 = 0;
     __Vdlyvset__v__DOT__R__v9 = 0;
-    // ALWAYS at source/ym2149.v:79
+    // ALWAYS at source/ym2149.v:85
     if (vlTOPp->in_rst) {
 	__Vdlyvset__v__DOT__R__v0 = 1;
 	__Vdly__v__DOT__CA_TONE = 0;
@@ -221,7 +221,7 @@ void Vym2149::_sequent__TOP__1(Vym2149__Syms* __restrict vlSymsp) {
     vlTOPp->v__DOT__CB_BIT = __Vdly__v__DOT__CB_BIT;
     vlTOPp->v__DOT__CA_BIT = __Vdly__v__DOT__CA_BIT;
     vlTOPp->v__DOT__LFSR = __Vdly__v__DOT__LFSR;
-    // ALWAYSPOST at source/ym2149.v:83
+    // ALWAYSPOST at source/ym2149.v:89
     if (__Vdlyvset__v__DOT__R__v0) {
 	vlTOPp->v__DOT__R[0] = 0xff;
     }

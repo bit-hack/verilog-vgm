@@ -24,26 +24,33 @@ module ym2149(
   // internal registers
   reg [7:0] R [16];
 
-  wire [11:0] CA_FREQ;
-  wire [11:0] CB_FREQ;
-  wire [11:0] CC_FREQ;
+  // channel frequencies
+  wire [11:0] CA_FREQ = { R[1][3:0], R[0][7:0] };
+  wire [11:0] CB_FREQ = { R[3][3:0], R[2][7:0] };
+  wire [11:0] CC_FREQ = { R[5][3:0], R[4][7:0] };
 
+  // pre-dac channel mixer
+  wire CA_BIT_MIX = (CA_BIT & CA_TONE_ENABLE) ^ (LFSR_OUT & CA_LFSR_ENABLE);
+  wire CB_BIT_MIX = (CB_BIT & CB_TONE_ENABLE) ^ (LFSR_OUT & CB_LFSR_ENABLE);
+  wire CC_BIT_MIX = (CC_BIT & CC_TONE_ENABLE) ^ (LFSR_OUT & CC_LFSR_ENABLE);
+
+  // channel mixer
+  reg [15:0] MIX_OUT = CA_MIX + CB_MIX + CC_MIX;
+
+  // tone counters
   reg [11:0] CA_TONE;
   reg [11:0] CB_TONE;
   reg [11:0] CC_TONE;
 
+  // channel output bits
   reg CA_BIT;
   reg CB_BIT;
   reg CC_BIT;
 
-  wire [15:0] CA_MIX;
-  wire [15:0] CB_MIX;
-  wire [15:0] CC_MIX;
-
-  // channel frequencies
-  assign CA_FREQ = { R[1][3:0], R[0][7:0] };
-  assign CB_FREQ = { R[3][3:0], R[2][7:0] };
-  assign CC_FREQ = { R[5][3:0], R[4][7:0] };
+  // per channel mix
+  wire [15:0] CA_MIX = AMP_TABLE[{CA_BIT_MIX, CA_AMP}];
+  wire [15:0] CB_MIX = AMP_TABLE[{CB_BIT_MIX, CB_AMP}];
+  wire [15:0] CC_MIX = AMP_TABLE[{CC_BIT_MIX, CC_AMP}];
 
   // invert so channel enabled when '1' and mute when '0'
   wire CA_TONE_ENABLE = ~R[7][0];
@@ -69,7 +76,6 @@ module ym2149(
   wire LFSR_OUT = LFSR[0];
 
   // output mix
-  reg [15:0] MIX_OUT;
   assign out_lr = MIX_OUT;
 
   // clock dividers
@@ -150,18 +156,5 @@ module ym2149(
     // track the old WR register
     OLD_WR <= in_wr;
   end
-
-  // pre-dac channel mixer
-  wire CA_BIT_MIX = (CA_BIT & CA_TONE_ENABLE) ^ (LFSR_OUT & CA_LFSR_ENABLE);
-  wire CB_BIT_MIX = (CB_BIT & CB_TONE_ENABLE) ^ (LFSR_OUT & CB_LFSR_ENABLE);
-  wire CC_BIT_MIX = (CC_BIT & CC_TONE_ENABLE) ^ (LFSR_OUT & CC_LFSR_ENABLE);
-
-  // per channel mix
-  assign CA_MIX = AMP_TABLE[{CA_BIT_MIX, CA_AMP}];
-  assign CB_MIX = AMP_TABLE[{CB_BIT_MIX, CB_AMP}];
-  assign CC_MIX = AMP_TABLE[{CC_BIT_MIX, CC_AMP}];
-
-  // channel mixer
-  assign MIX_OUT = CA_MIX + CB_MIX + CC_MIX;
 
 endmodule
