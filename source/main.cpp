@@ -25,9 +25,14 @@
 static const uint64_t SAMPLE_RATE = 44100;
 static const uint64_t MAX_SAMPLES = ~0ull;
 
+Vnesapu nesapu;
 Vym2149 ym2149;
 Vsn76489 sn76489;
-Vnesapu nesapu;
+
+// output samples
+std::vector<uint16_t> samples;
+
+uint32_t hit_count;
 
 struct vgm_stream_ext_t: public vgm_stream_t {
 
@@ -36,6 +41,9 @@ struct vgm_stream_ext_t: public vgm_stream_t {
   {}
 
   void write_ay8910(uint8_t reg, uint8_t value) override {
+    if (reg >= 16) {
+      return;
+    }
     ym2149.in_reg = reg;
     ym2149.in_val = value;
     for (int i = 0; i < 8; ++i) {
@@ -46,6 +54,9 @@ struct vgm_stream_ext_t: public vgm_stream_t {
   }
 
   void write_nesapu(uint8_t reg, uint8_t value) override {
+    if (reg >= 23) {
+      return;
+    }
     nesapu.in_reg = reg;
     nesapu.in_val = value;
     for (int i = 0; i < 8; ++i) {
@@ -67,9 +78,6 @@ struct vgm_stream_ext_t: public vgm_stream_t {
 
 int main(int argc, char **args) {
 
-  // output samples
-  std::vector<uint16_t> samples;
-
   // create our chip
   CHIP.in_clk = 1;
   CHIP.in_rst = 0;
@@ -85,7 +93,9 @@ int main(int argc, char **args) {
 
 //    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
 
-    "C:/repos/vgmverilator/music/nesapu/Castlevania_(NES)/02 Vampire Killer"
+//    "C:/repos/vgmverilator/music/nesapu/Castlevania_(NES)/06 Heart of Fire"
+    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/01 Running About"
+//    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/03 Swimming Around"
   )) {
     return 1;
   }
@@ -109,7 +119,13 @@ int main(int argc, char **args) {
     CHIP.eval();
   }
 
+  int64_t smp_accum = 0;
+  int64_t smp_count = 0;
+
   while (samples_done < MAX_SAMPLES && !vgm_stream.finished()) {
+
+    smp_accum += (int16_t)(CHIP.out_lr);
+    smp_count += 1;
 
     while (vgm_stream.delay == 0) {
       if (vgm_stream.finished()) {
@@ -128,7 +144,13 @@ int main(int argc, char **args) {
       counter_smp = MCLK / SAMPLE_RATE;
       ++samples_done;
       // output our sample
+#if 0
       const uint16_t sample = CHIP.out_lr;
+#else
+      const uint16_t sample = smp_accum / smp_count;
+#endif
+      smp_accum = 0;
+      smp_count = 0;
       samples.emplace_back(sample);
     }
     else {

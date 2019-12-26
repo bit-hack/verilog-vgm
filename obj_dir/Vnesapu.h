@@ -24,7 +24,7 @@ VL_MODULE(Vnesapu) {
     // propagate new values into/out from the Verilated model.
     VL_IN8(in_clk,0,0);
     VL_IN8(in_rst,0,0);
-    VL_IN8(in_reg,3,0);
+    VL_IN8(in_reg,4,0);
     VL_IN8(in_val,7,0);
     VL_IN8(in_wr,0,0);
     //char	__VpadToAlign5[1];
@@ -32,14 +32,53 @@ VL_MODULE(Vnesapu) {
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
+    VL_SIG8(v__DOT__old_wr,0,0);
+    VL_SIG8(v__DOT__pulse0_enable,0,0);
+    VL_SIG8(v__DOT__pulse1_enable,0,0);
+    VL_SIG8(v__DOT__tri_enable,0,0);
+    VL_SIG8(v__DOT__noise_enable,0,0);
+    VL_SIG8(v__DOT__pulse0_vol,3,0);
+    VL_SIG8(v__DOT__pulse0_seq,7,0);
+    VL_SIG8(v__DOT__pulse0_length,7,0);
+    VL_SIG8(v__DOT__pulse1_vol,3,0);
+    VL_SIG8(v__DOT__pulse1_seq,7,0);
+    VL_SIG8(v__DOT__pulse1_length,7,0);
+    VL_SIG8(v__DOT__tri_step,4,0);
+    VL_SIG8(v__DOT__tri_length,7,0);
+    VL_SIG8(v__DOT__lfsr_vol,3,0);
+    VL_SIG8(v__DOT__lfsr_length,7,0);
+    VL_SIG8(v__DOT__clk_div,7,0);
+    VL_SIG8(v__DOT__frame_step,4,0);
+    VL_SIG8(v__DOT__tri_out,7,0);
+    VL_SIG8(v__DOT__in_timer,7,0);
+    //char	__VpadToAlign31[1];
+    VL_SIG16(v__DOT__pulse0_freq,10,0);
+    VL_SIG16(v__DOT__pulse0_int,10,0);
+    VL_SIG16(v__DOT__pulse1_freq,10,0);
+    VL_SIG16(v__DOT__pulse1_int,10,0);
+    VL_SIG16(v__DOT__tri_freq,10,0);
+    VL_SIG16(v__DOT__tri_int,10,0);
+    VL_SIG16(v__DOT__lfsr,14,0);
+    VL_SIG16(v__DOT__frame_clk,11,0);
+    VL_SIG16(v__DOT__pulse0_out,15,0);
+    VL_SIG16(v__DOT__pulse1_out,15,0);
+    VL_SIG16(v__DOT__lfsr_out,15,0);
+    //char	__VpadToAlign54[2];
+    VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
+    VL_SIG8(v__DOT__TRI_TABLE[32],7,0);
+    VL_SIG8(v__DOT__LEN_TABLE[32],7,0);
+    VL_SIG8(v__DOT__apu_reg[23],7,0);
+    //char	__VpadToAlign207[1];
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
+    VL_SIG8(v__DOT____Vlvbound1,7,0);
     VL_SIG8(__Vclklast__TOP__in_clk,0,0);
-    //char	__VpadToAlign17[3];
+    //char	__VpadToAlign214[2];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
+    //char	__VpadToAlign220[4];
     Vnesapu__Syms*	__VlSymsp;		// Symbol table
     
     // PARAMETERS
@@ -73,9 +112,15 @@ VL_MODULE(Vnesapu) {
   private:
     static IData	_change_request(Vnesapu__Syms* __restrict vlSymsp);
   public:
+    static void	_combo__TOP__2(Vnesapu__Syms* __restrict vlSymsp);
     static void	_eval(Vnesapu__Syms* __restrict vlSymsp);
     static void	_eval_initial(Vnesapu__Syms* __restrict vlSymsp);
     static void	_eval_settle(Vnesapu__Syms* __restrict vlSymsp);
+    static void	_initial__TOP(Vnesapu__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__1(Vnesapu__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__4(Vnesapu__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__3(Vnesapu__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__5(Vnesapu__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/
