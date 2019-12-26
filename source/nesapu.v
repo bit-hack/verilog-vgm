@@ -173,7 +173,6 @@ module nesapu(
         end else begin
           pulse1_int <= pulse1_int - 11'd1;
         end
-
       end
 
       if (clk_div[3:0] == 0) begin
@@ -188,7 +187,6 @@ module nesapu(
       end else begin
         tri_int <= tri_int - 11'd1;
       end
-
     end
 
     // increment clock dividers
