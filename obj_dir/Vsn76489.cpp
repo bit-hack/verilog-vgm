@@ -25,26 +25,26 @@ VL_CTOR_IMP(Vsn76489) {
     { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
 	    v__DOT__AMP_TABLE[__Vi0] = VL_RAND_RESET_I(16);
     }}
-    v__DOT__OLD_WR = VL_RAND_RESET_I(1);
+    v__DOT__old_wr = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<3; ++__Vi0) {
-	    v__DOT__C_FREQ[__Vi0] = VL_RAND_RESET_I(10);
+	    v__DOT__c_freq[__Vi0] = VL_RAND_RESET_I(10);
     }}
     { int __Vi0=0; for (; __Vi0<3; ++__Vi0) {
-	    v__DOT__C_TONE[__Vi0] = VL_RAND_RESET_I(10);
+	    v__DOT__c_tone[__Vi0] = VL_RAND_RESET_I(10);
     }}
     { int __Vi0=0; for (; __Vi0<4; ++__Vi0) {
-	    v__DOT__C_AMP[__Vi0] = VL_RAND_RESET_I(4);
+	    v__DOT__c_amp[__Vi0] = VL_RAND_RESET_I(4);
     }}
     { int __Vi0=0; for (; __Vi0<3; ++__Vi0) {
-	    v__DOT__C_BIT[__Vi0] = VL_RAND_RESET_I(1);
+	    v__DOT__c_bit[__Vi0] = VL_RAND_RESET_I(1);
     }}
-    v__DOT__LFSR = VL_RAND_RESET_I(16);
-    v__DOT__CLK_DIV = VL_RAND_RESET_I(8);
-    v__DOT__LATCH_CHAN = VL_RAND_RESET_I(2);
-    v__DOT__C0_MIX = VL_RAND_RESET_I(16);
-    v__DOT__C1_MIX = VL_RAND_RESET_I(16);
-    v__DOT__C2_MIX = VL_RAND_RESET_I(16);
-    v__DOT__NZ_MIX = VL_RAND_RESET_I(16);
+    v__DOT__lfsr = VL_RAND_RESET_I(16);
+    v__DOT__clk_div = VL_RAND_RESET_I(8);
+    v__DOT__latch_chan = VL_RAND_RESET_I(2);
+    v__DOT__c0_mix = VL_RAND_RESET_I(16);
+    v__DOT__c1_mix = VL_RAND_RESET_I(16);
+    v__DOT__c2_mix = VL_RAND_RESET_I(16);
+    v__DOT__nz_mix = VL_RAND_RESET_I(16);
     v__DOT____Vlvbound1 = 0;
     v__DOT____Vlvbound2 = 0;
     __Vclklast__TOP__in_clk = 0;
@@ -117,70 +117,70 @@ void Vsn76489::_sequent__TOP__1(Vsn76489__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vsn76489::_sequent__TOP__1\n"); );
     Vsn76489* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    VL_SIG8(__Vdlyvset__v__DOT__C_AMP__v0,0,0);
-    VL_SIG8(__Vdlyvdim0__v__DOT__C_FREQ__v0,1,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_FREQ__v0,0,0);
-    VL_SIG8(__Vdly__v__DOT__LATCH_CHAN,1,0);
-    VL_SIG8(__Vdlyvdim0__v__DOT__C_FREQ__v1,1,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_FREQ__v1,0,0);
-    VL_SIG8(__Vdlyvdim0__v__DOT__C_AMP__v4,1,0);
-    VL_SIG8(__Vdlyvval__v__DOT__C_AMP__v4,3,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_AMP__v4,0,0);
-    VL_SIG8(__Vdlyvval__v__DOT__C_BIT__v0,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_BIT__v0,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_TONE__v1,0,0);
-    VL_SIG8(__Vdlyvval__v__DOT__C_BIT__v1,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_BIT__v1,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_TONE__v3,0,0);
-    VL_SIG8(__Vdlyvval__v__DOT__C_BIT__v2,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_BIT__v2,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__C_TONE__v5,0,0);
-    VL_SIG8(__Vdly__v__DOT__CLK_DIV,7,0);
-    VL_SIG8(__Vdly__v__DOT__OLD_WR,0,0);
-    VL_SIG16(__Vdly__v__DOT__LFSR,15,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_FREQ__v0,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_FREQ__v1,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_TONE__v0,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_TONE__v1,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_TONE__v2,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_TONE__v3,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_TONE__v4,9,0);
-    VL_SIG16(__Vdlyvval__v__DOT__C_TONE__v5,9,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_amp__v0,0,0);
+    VL_SIG8(__Vdlyvdim0__v__DOT__c_freq__v0,1,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_freq__v0,0,0);
+    VL_SIG8(__Vdly__v__DOT__latch_chan,1,0);
+    VL_SIG8(__Vdlyvdim0__v__DOT__c_freq__v1,1,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_freq__v1,0,0);
+    VL_SIG8(__Vdlyvdim0__v__DOT__c_amp__v4,1,0);
+    VL_SIG8(__Vdlyvval__v__DOT__c_amp__v4,3,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_amp__v4,0,0);
+    VL_SIG8(__Vdlyvval__v__DOT__c_bit__v0,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_bit__v0,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_tone__v1,0,0);
+    VL_SIG8(__Vdlyvval__v__DOT__c_bit__v1,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_bit__v1,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_tone__v3,0,0);
+    VL_SIG8(__Vdlyvval__v__DOT__c_bit__v2,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_bit__v2,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_tone__v5,0,0);
+    VL_SIG8(__Vdly__v__DOT__clk_div,7,0);
+    VL_SIG8(__Vdly__v__DOT__old_wr,0,0);
+    VL_SIG16(__Vdly__v__DOT__lfsr,15,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_freq__v0,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_freq__v1,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_tone__v0,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_tone__v1,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_tone__v2,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_tone__v3,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_tone__v4,9,0);
+    VL_SIG16(__Vdlyvval__v__DOT__c_tone__v5,9,0);
     //char	__VpadToAlign82[2];
     // Body
-    __Vdly__v__DOT__OLD_WR = vlTOPp->v__DOT__OLD_WR;
-    __Vdly__v__DOT__LATCH_CHAN = vlTOPp->v__DOT__LATCH_CHAN;
-    __Vdly__v__DOT__CLK_DIV = vlTOPp->v__DOT__CLK_DIV;
-    __Vdly__v__DOT__LFSR = vlTOPp->v__DOT__LFSR;
-    __Vdlyvset__v__DOT__C_FREQ__v0 = 0;
-    __Vdlyvset__v__DOT__C_FREQ__v1 = 0;
-    __Vdlyvset__v__DOT__C_AMP__v0 = 0;
-    __Vdlyvset__v__DOT__C_AMP__v4 = 0;
-    __Vdlyvset__v__DOT__C_TONE__v1 = 0;
-    __Vdlyvset__v__DOT__C_TONE__v3 = 0;
-    __Vdlyvset__v__DOT__C_TONE__v5 = 0;
-    __Vdlyvset__v__DOT__C_BIT__v0 = 0;
-    __Vdlyvset__v__DOT__C_BIT__v1 = 0;
-    __Vdlyvset__v__DOT__C_BIT__v2 = 0;
+    __Vdly__v__DOT__old_wr = vlTOPp->v__DOT__old_wr;
+    __Vdly__v__DOT__latch_chan = vlTOPp->v__DOT__latch_chan;
+    __Vdly__v__DOT__clk_div = vlTOPp->v__DOT__clk_div;
+    __Vdly__v__DOT__lfsr = vlTOPp->v__DOT__lfsr;
+    __Vdlyvset__v__DOT__c_freq__v0 = 0;
+    __Vdlyvset__v__DOT__c_freq__v1 = 0;
+    __Vdlyvset__v__DOT__c_amp__v0 = 0;
+    __Vdlyvset__v__DOT__c_amp__v4 = 0;
+    __Vdlyvset__v__DOT__c_tone__v1 = 0;
+    __Vdlyvset__v__DOT__c_tone__v3 = 0;
+    __Vdlyvset__v__DOT__c_tone__v5 = 0;
+    __Vdlyvset__v__DOT__c_bit__v0 = 0;
+    __Vdlyvset__v__DOT__c_bit__v1 = 0;
+    __Vdlyvset__v__DOT__c_bit__v2 = 0;
     // ALWAYS at source/sn76489.v:64
     if (vlTOPp->in_rst) {
-	__Vdlyvset__v__DOT__C_AMP__v0 = 1;
+	__Vdlyvset__v__DOT__c_amp__v0 = 1;
     } else {
-	if ((0 == (IData)(vlTOPp->v__DOT__CLK_DIV))) {
-	    __Vdly__v__DOT__LFSR = (0xffff & ((0 == (IData)(vlTOPp->v__DOT__LFSR))
+	if ((0 == (IData)(vlTOPp->v__DOT__clk_div))) {
+	    __Vdly__v__DOT__lfsr = (0xffff & ((0 == (IData)(vlTOPp->v__DOT__lfsr))
 					       ? 1 : 
 					      ((0x8000 
-						& (((IData)(vlTOPp->v__DOT__LFSR) 
+						& (((IData)(vlTOPp->v__DOT__lfsr) 
 						    << 0xf) 
 						   ^ 
 						   (0xffff8000 
-						    & ((IData)(vlTOPp->v__DOT__LFSR) 
+						    & ((IData)(vlTOPp->v__DOT__lfsr) 
 						       << 0xc)))) 
 					       | (0x7fff 
-						  & ((IData)(vlTOPp->v__DOT__LFSR) 
+						  & ((IData)(vlTOPp->v__DOT__lfsr) 
 						     >> 1)))));
 	}
-	if (((IData)(vlTOPp->in_wr) & (~ (IData)(vlTOPp->v__DOT__OLD_WR)))) {
+	if (((IData)(vlTOPp->in_wr) & (~ (IData)(vlTOPp->v__DOT__old_wr)))) {
 	    if ((0x80 == (0x90 & (IData)(vlTOPp->in_val)))) {
 		if ((3 != (3 & ((IData)(vlTOPp->in_val) 
 				>> 5)))) {
@@ -191,7 +191,7 @@ void Vsn76489::_sequent__TOP__1(Vsn76489__Syms* __restrict vlSymsp) {
 							    >> 5)) 
 							<= 2)
 						        ? 
-						       (IData)(vlTOPp->v__DOT__C_FREQ)
+						       (IData)(vlTOPp->v__DOT__c_freq)
 						       [
 						       (3 
 							& ((IData)(vlTOPp->in_val) 
@@ -201,199 +201,199 @@ void Vsn76489::_sequent__TOP__1(Vsn76489__Syms* __restrict vlSymsp) {
 						      & (IData)(vlTOPp->in_val)));
 		    if (((3 & ((IData)(vlTOPp->in_val) 
 			       >> 5)) <= 2)) {
-			__Vdlyvval__v__DOT__C_FREQ__v0 
+			__Vdlyvval__v__DOT__c_freq__v0 
 			    = vlTOPp->v__DOT____Vlvbound1;
-			__Vdlyvset__v__DOT__C_FREQ__v0 = 1;
-			__Vdlyvdim0__v__DOT__C_FREQ__v0 
+			__Vdlyvset__v__DOT__c_freq__v0 = 1;
+			__Vdlyvdim0__v__DOT__c_freq__v0 
 			    = (3 & ((IData)(vlTOPp->in_val) 
 				    >> 5));
 		    }
 		}
-		__Vdly__v__DOT__LATCH_CHAN = (3 & ((IData)(vlTOPp->in_val) 
+		__Vdly__v__DOT__latch_chan = (3 & ((IData)(vlTOPp->in_val) 
 						   >> 5));
 	    } else {
 		if ((0 == (0x80 & (IData)(vlTOPp->in_val)))) {
-		    if ((3 != (IData)(vlTOPp->v__DOT__LATCH_CHAN))) {
+		    if ((3 != (IData)(vlTOPp->v__DOT__latch_chan))) {
 			vlTOPp->v__DOT____Vlvbound2 
 			    = ((0x3f0 & ((IData)(vlTOPp->in_val) 
 					 << 4)) | (0xf 
-						   & (((IData)(vlTOPp->v__DOT__LATCH_CHAN) 
+						   & (((IData)(vlTOPp->v__DOT__latch_chan) 
 						       <= 2)
 						       ? 
-						      (IData)(vlTOPp->v__DOT__C_FREQ)
-						      [(IData)(vlTOPp->v__DOT__LATCH_CHAN)]
+						      (IData)(vlTOPp->v__DOT__c_freq)
+						      [(IData)(vlTOPp->v__DOT__latch_chan)]
 						       : 0)));
-			if (((IData)(vlTOPp->v__DOT__LATCH_CHAN) 
+			if (((IData)(vlTOPp->v__DOT__latch_chan) 
 			     <= 2)) {
-			    __Vdlyvval__v__DOT__C_FREQ__v1 
+			    __Vdlyvval__v__DOT__c_freq__v1 
 				= vlTOPp->v__DOT____Vlvbound2;
-			    __Vdlyvset__v__DOT__C_FREQ__v1 = 1;
-			    __Vdlyvdim0__v__DOT__C_FREQ__v1 
-				= vlTOPp->v__DOT__LATCH_CHAN;
+			    __Vdlyvset__v__DOT__c_freq__v1 = 1;
+			    __Vdlyvdim0__v__DOT__c_freq__v1 
+				= vlTOPp->v__DOT__latch_chan;
 			}
 		    }
 		} else {
 		    if ((0x90 == (0x90 & (IData)(vlTOPp->in_val)))) {
-			__Vdlyvval__v__DOT__C_AMP__v4 
+			__Vdlyvval__v__DOT__c_amp__v4 
 			    = (0xf & (IData)(vlTOPp->in_val));
-			__Vdlyvset__v__DOT__C_AMP__v4 = 1;
-			__Vdlyvdim0__v__DOT__C_AMP__v4 
+			__Vdlyvset__v__DOT__c_amp__v4 = 1;
+			__Vdlyvdim0__v__DOT__c_amp__v4 
 			    = (3 & ((IData)(vlTOPp->in_val) 
 				    >> 5));
 		    }
 		}
 	    }
 	}
-	if ((0 == (0xf & (IData)(vlTOPp->v__DOT__CLK_DIV)))) {
-	    if ((0 == (IData)(vlTOPp->v__DOT__C_TONE)
+	if ((0 == (0xf & (IData)(vlTOPp->v__DOT__clk_div)))) {
+	    if ((0 == (IData)(vlTOPp->v__DOT__c_tone)
 		 [0])) {
-		__Vdlyvval__v__DOT__C_BIT__v0 = (1 
+		__Vdlyvval__v__DOT__c_bit__v0 = (1 
 						 & (~ 
-						    (IData)(vlTOPp->v__DOT__C_BIT)
+						    (IData)(vlTOPp->v__DOT__c_bit)
 						    [0]));
-		__Vdlyvset__v__DOT__C_BIT__v0 = 1;
-		__Vdlyvval__v__DOT__C_TONE__v0 = (IData)(vlTOPp->v__DOT__C_FREQ)
+		__Vdlyvset__v__DOT__c_bit__v0 = 1;
+		__Vdlyvval__v__DOT__c_tone__v0 = (IData)(vlTOPp->v__DOT__c_freq)
 		    [0];
 	    } else {
-		__Vdlyvval__v__DOT__C_TONE__v1 = (0x3ff 
-						  & ((IData)(vlTOPp->v__DOT__C_TONE)
+		__Vdlyvval__v__DOT__c_tone__v1 = (0x3ff 
+						  & ((IData)(vlTOPp->v__DOT__c_tone)
 						     [0] 
 						     - (IData)(1)));
-		__Vdlyvset__v__DOT__C_TONE__v1 = 1;
+		__Vdlyvset__v__DOT__c_tone__v1 = 1;
 	    }
-	    if ((0 == (IData)(vlTOPp->v__DOT__C_TONE)
+	    if ((0 == (IData)(vlTOPp->v__DOT__c_tone)
 		 [1])) {
-		__Vdlyvval__v__DOT__C_BIT__v1 = (1 
+		__Vdlyvval__v__DOT__c_bit__v1 = (1 
 						 & (~ 
-						    (IData)(vlTOPp->v__DOT__C_BIT)
+						    (IData)(vlTOPp->v__DOT__c_bit)
 						    [1]));
-		__Vdlyvset__v__DOT__C_BIT__v1 = 1;
-		__Vdlyvval__v__DOT__C_TONE__v2 = (IData)(vlTOPp->v__DOT__C_FREQ)
+		__Vdlyvset__v__DOT__c_bit__v1 = 1;
+		__Vdlyvval__v__DOT__c_tone__v2 = (IData)(vlTOPp->v__DOT__c_freq)
 		    [1];
 	    } else {
-		__Vdlyvval__v__DOT__C_TONE__v3 = (0x3ff 
-						  & ((IData)(vlTOPp->v__DOT__C_TONE)
+		__Vdlyvval__v__DOT__c_tone__v3 = (0x3ff 
+						  & ((IData)(vlTOPp->v__DOT__c_tone)
 						     [1] 
 						     - (IData)(1)));
-		__Vdlyvset__v__DOT__C_TONE__v3 = 1;
+		__Vdlyvset__v__DOT__c_tone__v3 = 1;
 	    }
-	    if ((0 == (IData)(vlTOPp->v__DOT__C_TONE)
+	    if ((0 == (IData)(vlTOPp->v__DOT__c_tone)
 		 [2])) {
-		__Vdlyvval__v__DOT__C_BIT__v2 = (1 
+		__Vdlyvval__v__DOT__c_bit__v2 = (1 
 						 & (~ 
-						    (IData)(vlTOPp->v__DOT__C_BIT)
+						    (IData)(vlTOPp->v__DOT__c_bit)
 						    [2]));
-		__Vdlyvset__v__DOT__C_BIT__v2 = 1;
-		__Vdlyvval__v__DOT__C_TONE__v4 = (IData)(vlTOPp->v__DOT__C_FREQ)
+		__Vdlyvset__v__DOT__c_bit__v2 = 1;
+		__Vdlyvval__v__DOT__c_tone__v4 = (IData)(vlTOPp->v__DOT__c_freq)
 		    [2];
 	    } else {
-		__Vdlyvval__v__DOT__C_TONE__v5 = (0x3ff 
-						  & ((IData)(vlTOPp->v__DOT__C_TONE)
+		__Vdlyvval__v__DOT__c_tone__v5 = (0x3ff 
+						  & ((IData)(vlTOPp->v__DOT__c_tone)
 						     [2] 
 						     - (IData)(1)));
-		__Vdlyvset__v__DOT__C_TONE__v5 = 1;
+		__Vdlyvset__v__DOT__c_tone__v5 = 1;
 	    }
 	}
     }
-    __Vdly__v__DOT__CLK_DIV = (0xff & ((IData)(1) + (IData)(vlTOPp->v__DOT__CLK_DIV)));
-    __Vdly__v__DOT__OLD_WR = vlTOPp->in_wr;
-    vlTOPp->v__DOT__OLD_WR = __Vdly__v__DOT__OLD_WR;
-    vlTOPp->v__DOT__CLK_DIV = __Vdly__v__DOT__CLK_DIV;
-    vlTOPp->v__DOT__LATCH_CHAN = __Vdly__v__DOT__LATCH_CHAN;
+    __Vdly__v__DOT__clk_div = (0xff & ((IData)(1) + (IData)(vlTOPp->v__DOT__clk_div)));
+    __Vdly__v__DOT__old_wr = vlTOPp->in_wr;
+    vlTOPp->v__DOT__old_wr = __Vdly__v__DOT__old_wr;
+    vlTOPp->v__DOT__clk_div = __Vdly__v__DOT__clk_div;
+    vlTOPp->v__DOT__latch_chan = __Vdly__v__DOT__latch_chan;
     // ALWAYSPOST at source/sn76489.v:83
-    if (__Vdlyvset__v__DOT__C_FREQ__v0) {
-	vlTOPp->v__DOT__C_FREQ[(IData)(__Vdlyvdim0__v__DOT__C_FREQ__v0)] 
-	    = __Vdlyvval__v__DOT__C_FREQ__v0;
+    if (__Vdlyvset__v__DOT__c_freq__v0) {
+	vlTOPp->v__DOT__c_freq[(IData)(__Vdlyvdim0__v__DOT__c_freq__v0)] 
+	    = __Vdlyvval__v__DOT__c_freq__v0;
     }
-    if (__Vdlyvset__v__DOT__C_FREQ__v1) {
-	vlTOPp->v__DOT__C_FREQ[(IData)(__Vdlyvdim0__v__DOT__C_FREQ__v1)] 
-	    = __Vdlyvval__v__DOT__C_FREQ__v1;
+    if (__Vdlyvset__v__DOT__c_freq__v1) {
+	vlTOPp->v__DOT__c_freq[(IData)(__Vdlyvdim0__v__DOT__c_freq__v1)] 
+	    = __Vdlyvval__v__DOT__c_freq__v1;
     }
     // ALWAYSPOST at source/sn76489.v:114
-    if (__Vdlyvset__v__DOT__C_BIT__v0) {
-	vlTOPp->v__DOT__C_TONE[0] = __Vdlyvval__v__DOT__C_TONE__v0;
+    if (__Vdlyvset__v__DOT__c_bit__v0) {
+	vlTOPp->v__DOT__c_tone[0] = __Vdlyvval__v__DOT__c_tone__v0;
     }
-    if (__Vdlyvset__v__DOT__C_TONE__v1) {
-	vlTOPp->v__DOT__C_TONE[0] = __Vdlyvval__v__DOT__C_TONE__v1;
+    if (__Vdlyvset__v__DOT__c_tone__v1) {
+	vlTOPp->v__DOT__c_tone[0] = __Vdlyvval__v__DOT__c_tone__v1;
     }
-    if (__Vdlyvset__v__DOT__C_BIT__v1) {
-	vlTOPp->v__DOT__C_TONE[1] = __Vdlyvval__v__DOT__C_TONE__v2;
+    if (__Vdlyvset__v__DOT__c_bit__v1) {
+	vlTOPp->v__DOT__c_tone[1] = __Vdlyvval__v__DOT__c_tone__v2;
     }
-    if (__Vdlyvset__v__DOT__C_TONE__v3) {
-	vlTOPp->v__DOT__C_TONE[1] = __Vdlyvval__v__DOT__C_TONE__v3;
+    if (__Vdlyvset__v__DOT__c_tone__v3) {
+	vlTOPp->v__DOT__c_tone[1] = __Vdlyvval__v__DOT__c_tone__v3;
     }
-    if (__Vdlyvset__v__DOT__C_BIT__v2) {
-	vlTOPp->v__DOT__C_TONE[2] = __Vdlyvval__v__DOT__C_TONE__v4;
+    if (__Vdlyvset__v__DOT__c_bit__v2) {
+	vlTOPp->v__DOT__c_tone[2] = __Vdlyvval__v__DOT__c_tone__v4;
     }
-    if (__Vdlyvset__v__DOT__C_TONE__v5) {
-	vlTOPp->v__DOT__C_TONE[2] = __Vdlyvval__v__DOT__C_TONE__v5;
+    if (__Vdlyvset__v__DOT__c_tone__v5) {
+	vlTOPp->v__DOT__c_tone[2] = __Vdlyvval__v__DOT__c_tone__v5;
     }
-    vlTOPp->v__DOT__LFSR = __Vdly__v__DOT__LFSR;
+    vlTOPp->v__DOT__lfsr = __Vdly__v__DOT__lfsr;
     // ALWAYSPOST at source/sn76489.v:113
-    if (__Vdlyvset__v__DOT__C_BIT__v0) {
-	vlTOPp->v__DOT__C_BIT[0] = __Vdlyvval__v__DOT__C_BIT__v0;
+    if (__Vdlyvset__v__DOT__c_bit__v0) {
+	vlTOPp->v__DOT__c_bit[0] = __Vdlyvval__v__DOT__c_bit__v0;
     }
-    if (__Vdlyvset__v__DOT__C_BIT__v1) {
-	vlTOPp->v__DOT__C_BIT[1] = __Vdlyvval__v__DOT__C_BIT__v1;
+    if (__Vdlyvset__v__DOT__c_bit__v1) {
+	vlTOPp->v__DOT__c_bit[1] = __Vdlyvval__v__DOT__c_bit__v1;
     }
-    if (__Vdlyvset__v__DOT__C_BIT__v2) {
-	vlTOPp->v__DOT__C_BIT[2] = __Vdlyvval__v__DOT__C_BIT__v2;
+    if (__Vdlyvset__v__DOT__c_bit__v2) {
+	vlTOPp->v__DOT__c_bit[2] = __Vdlyvval__v__DOT__c_bit__v2;
     }
     // ALWAYSPOST at source/sn76489.v:68
-    if (__Vdlyvset__v__DOT__C_AMP__v0) {
-	vlTOPp->v__DOT__C_AMP[0] = 0;
-	vlTOPp->v__DOT__C_AMP[1] = 0;
-	vlTOPp->v__DOT__C_AMP[2] = 0;
-	vlTOPp->v__DOT__C_AMP[3] = 0;
+    if (__Vdlyvset__v__DOT__c_amp__v0) {
+	vlTOPp->v__DOT__c_amp[0] = 0;
+	vlTOPp->v__DOT__c_amp[1] = 0;
+	vlTOPp->v__DOT__c_amp[2] = 0;
+	vlTOPp->v__DOT__c_amp[3] = 0;
     }
-    if (__Vdlyvset__v__DOT__C_AMP__v4) {
-	vlTOPp->v__DOT__C_AMP[(IData)(__Vdlyvdim0__v__DOT__C_AMP__v4)] 
-	    = __Vdlyvval__v__DOT__C_AMP__v4;
+    if (__Vdlyvset__v__DOT__c_amp__v4) {
+	vlTOPp->v__DOT__c_amp[(IData)(__Vdlyvdim0__v__DOT__c_amp__v4)] 
+	    = __Vdlyvval__v__DOT__c_amp__v4;
     }
-    vlTOPp->v__DOT__C0_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((IData)(vlTOPp->v__DOT__C_BIT)[0] << 4) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[0])];
-    vlTOPp->v__DOT__C1_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((IData)(vlTOPp->v__DOT__C_BIT)[1] << 4) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[1])];
-    vlTOPp->v__DOT__C2_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((IData)(vlTOPp->v__DOT__C_BIT)[2] << 4) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[2])];
-    vlTOPp->v__DOT__NZ_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[((0x10 & ((IData)(vlTOPp->v__DOT__LFSR) << 4)) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[3])];
+    vlTOPp->v__DOT__c0_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((IData)(vlTOPp->v__DOT__c_bit)[0] << 4) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[0])];
+    vlTOPp->v__DOT__c1_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((IData)(vlTOPp->v__DOT__c_bit)[1] << 4) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[1])];
+    vlTOPp->v__DOT__c2_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((IData)(vlTOPp->v__DOT__c_bit)[2] << 4) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[2])];
+    vlTOPp->v__DOT__nz_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[((0x10 & ((IData)(vlTOPp->v__DOT__lfsr) << 4)) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[3])];
 }
 
 void Vsn76489::_settle__TOP__2(Vsn76489__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vsn76489::_settle__TOP__2\n"); );
     Vsn76489* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->v__DOT__C0_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((IData)(vlTOPp->v__DOT__C_BIT)[0] << 4) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[0])];
-    vlTOPp->v__DOT__C1_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((IData)(vlTOPp->v__DOT__C_BIT)[1] << 4) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[1])];
-    vlTOPp->v__DOT__C2_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((IData)(vlTOPp->v__DOT__C_BIT)[2] << 4) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[2])];
-    vlTOPp->v__DOT__NZ_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[((0x10 & ((IData)(vlTOPp->v__DOT__LFSR) << 4)) 
-	  | (IData)(vlTOPp->v__DOT__C_AMP)[3])];
-    vlTOPp->out_lr = (0xffff & ((((IData)(vlTOPp->v__DOT__C0_MIX) 
-				  + (IData)(vlTOPp->v__DOT__C1_MIX)) 
-				 + (IData)(vlTOPp->v__DOT__C2_MIX)) 
-				+ (IData)(vlTOPp->v__DOT__NZ_MIX)));
+    vlTOPp->v__DOT__c0_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((IData)(vlTOPp->v__DOT__c_bit)[0] << 4) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[0])];
+    vlTOPp->v__DOT__c1_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((IData)(vlTOPp->v__DOT__c_bit)[1] << 4) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[1])];
+    vlTOPp->v__DOT__c2_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((IData)(vlTOPp->v__DOT__c_bit)[2] << 4) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[2])];
+    vlTOPp->v__DOT__nz_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[((0x10 & ((IData)(vlTOPp->v__DOT__lfsr) << 4)) 
+	  | (IData)(vlTOPp->v__DOT__c_amp)[3])];
+    vlTOPp->out_lr = (0xffff & ((((IData)(vlTOPp->v__DOT__c0_mix) 
+				  + (IData)(vlTOPp->v__DOT__c1_mix)) 
+				 + (IData)(vlTOPp->v__DOT__c2_mix)) 
+				+ (IData)(vlTOPp->v__DOT__nz_mix)));
 }
 
 void Vsn76489::_sequent__TOP__3(Vsn76489__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vsn76489::_sequent__TOP__3\n"); );
     Vsn76489* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->out_lr = (0xffff & ((((IData)(vlTOPp->v__DOT__C0_MIX) 
-				  + (IData)(vlTOPp->v__DOT__C1_MIX)) 
-				 + (IData)(vlTOPp->v__DOT__C2_MIX)) 
-				+ (IData)(vlTOPp->v__DOT__NZ_MIX)));
+    vlTOPp->out_lr = (0xffff & ((((IData)(vlTOPp->v__DOT__c0_mix) 
+				  + (IData)(vlTOPp->v__DOT__c1_mix)) 
+				 + (IData)(vlTOPp->v__DOT__c2_mix)) 
+				+ (IData)(vlTOPp->v__DOT__nz_mix)));
 }
 
 void Vsn76489::_eval(Vsn76489__Syms* __restrict vlSymsp) {

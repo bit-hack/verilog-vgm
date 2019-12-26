@@ -1,7 +1,7 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
-// TODO:
+// todo:
 // - noise period
 // - envelopes
 
@@ -14,147 +14,147 @@ module ym2149(
   output [15:0] out_lr
 );
 
-  // volume table ROM
+  // volume table rom
   reg [15:0] AMP_TABLE[32];
   initial $readmemh("ym2149_dac.txt", AMP_TABLE);
 
-  // track change in WR
-  reg OLD_WR;
+  // track change in wr
+  reg old_wr;
 
   // internal registers
-  reg [7:0] R [16];
+  reg [7:0] r [16];
 
   // channel frequencies
-  wire [11:0] CA_FREQ = { R[1][3:0], R[0][7:0] };
-  wire [11:0] CB_FREQ = { R[3][3:0], R[2][7:0] };
-  wire [11:0] CC_FREQ = { R[5][3:0], R[4][7:0] };
+  wire [11:0] ca_freq = { r[1][3:0], r[0][7:0] };
+  wire [11:0] cb_freq = { r[3][3:0], r[2][7:0] };
+  wire [11:0] cc_freq = { r[5][3:0], r[4][7:0] };
 
   // pre-dac channel mixer
-  wire CA_BIT_MIX = (CA_BIT & CA_TONE_ENABLE) ^ (LFSR_OUT & CA_LFSR_ENABLE);
-  wire CB_BIT_MIX = (CB_BIT & CB_TONE_ENABLE) ^ (LFSR_OUT & CB_LFSR_ENABLE);
-  wire CC_BIT_MIX = (CC_BIT & CC_TONE_ENABLE) ^ (LFSR_OUT & CC_LFSR_ENABLE);
+  wire ca_bit_mix = (ca_bit & ca_tone_enable) ^ (lfsr_out & ca_lfsr_enable);
+  wire cb_bit_mix = (cb_bit & cb_tone_enable) ^ (lfsr_out & cb_lfsr_enable);
+  wire cc_bit_mix = (cc_bit & cc_tone_enable) ^ (lfsr_out & cc_lfsr_enable);
 
   // channel mixer
-  reg [15:0] MIX_OUT = CA_MIX + CB_MIX + CC_MIX;
+  reg [15:0] mix_out = ca_mix + cb_mix + cc_mix;
 
   // tone counters
-  reg [11:0] CA_TONE;
-  reg [11:0] CB_TONE;
-  reg [11:0] CC_TONE;
+  reg [11:0] ca_tone;
+  reg [11:0] cb_tone;
+  reg [11:0] cc_tone;
 
   // channel output bits
-  reg CA_BIT;
-  reg CB_BIT;
-  reg CC_BIT;
+  reg ca_bit;
+  reg cb_bit;
+  reg cc_bit;
 
   // per channel mix
-  wire [15:0] CA_MIX = AMP_TABLE[{CA_BIT_MIX, CA_AMP}];
-  wire [15:0] CB_MIX = AMP_TABLE[{CB_BIT_MIX, CB_AMP}];
-  wire [15:0] CC_MIX = AMP_TABLE[{CC_BIT_MIX, CC_AMP}];
+  wire [15:0] ca_mix = AMP_TABLE[{ca_bit_mix, ca_amp}];
+  wire [15:0] cb_mix = AMP_TABLE[{cb_bit_mix, cb_amp}];
+  wire [15:0] cc_mix = AMP_TABLE[{cc_bit_mix, cc_amp}];
 
   // invert so channel enabled when '1' and mute when '0'
-  wire CA_TONE_ENABLE = ~R[7][0];
-  wire CB_TONE_ENABLE = ~R[7][1];
-  wire CC_TONE_ENABLE = ~R[7][2];
-  wire CA_LFSR_ENABLE = ~R[7][3];
-  wire CB_LFSR_ENABLE = ~R[7][4];
-  wire CC_LFSR_ENABLE = ~R[7][5];
+  wire ca_tone_enable = ~r[7][0];
+  wire cb_tone_enable = ~r[7][1];
+  wire cc_tone_enable = ~r[7][2];
+  wire ca_lfsr_enable = ~r[7][3];
+  wire cb_lfsr_enable = ~r[7][4];
+  wire cc_lfsr_enable = ~r[7][5];
 
-  // four bit index into AMP_TABLE
-  wire [3:0] CA_AMP = R[8][3:0];
-  wire [3:0] CB_AMP = R[9][3:0];
-  wire [3:0] CC_AMP = R[10][3:0];
+  // four bit index into amp_table
+  wire [3:0] ca_amp = r[8][3:0];
+  wire [3:0] cb_amp = r[9][3:0];
+  wire [3:0] cc_amp = r[10][3:0];
 
   // volume is fixed when '0' or envelope controlled when '1'
-  wire CA_AMP_MODE = R[8][4];
-  wire CB_AMP_MODE = R[9][4];
-  wire CC_AMP_MODE = R[10][4];
+  wire ca_amp_mode = r[8][4];
+  wire cb_amp_mode = r[9][4];
+  wire cc_amp_mode = r[10][4];
 
   // noise linear feedback shift register
-  reg [16:0] LFSR;
-  wire LFSR_IN = LFSR[0] ^ LFSR[3];
-  wire LFSR_OUT = LFSR[0];
+  reg [16:0] lfsr;
+  wire lfsr_in = lfsr[0] ^ lfsr[3];
+  wire lfsr_out = lfsr[0];
 
   // output mix
-  assign out_lr = MIX_OUT;
+  assign out_lr = mix_out;
 
   // clock dividers
-  reg [2:0] CLK_DIV;
-  reg [2:0] NOZ_DIV;
+  reg [2:0] clk_div;
+  reg [2:0] noz_div;
 
   always @(posedge in_clk) begin
 
     if (in_rst) begin
       // clear frequencies
-      R[0] <= 8'hff;
-      R[1] <= 8'hff;
-      R[2] <= 8'hff;
-      R[3] <= 8'hff;
-      R[4] <= 8'hff;
-      R[5] <= 8'hff;
+      r[0] <= 8'hff;
+      r[1] <= 8'hff;
+      r[2] <= 8'hff;
+      r[3] <= 8'hff;
+      r[4] <= 8'hff;
+      r[5] <= 8'hff;
 
       // zero the amplitude registers
-      R[10] <= 8'h00;
-      R[11] <= 8'h00;
-      R[12] <= 8'h00;
+      r[10] <= 8'h00;
+      r[11] <= 8'h00;
+      r[12] <= 8'h00;
 
       // reset tone generator
-      CA_TONE <= 12'b0;
-      CB_TONE <= 12'b0;
-      CC_TONE <= 12'b0;
+      ca_tone <= 12'b0;
+      cb_tone <= 12'b0;
+      cc_tone <= 12'b0;
 
-      CA_BIT  <= 1'b0;
-      CB_BIT  <= 1'b0;
-      CC_BIT  <= 1'b0;
+      ca_bit  <= 1'b0;
+      cb_bit  <= 1'b0;
+      cc_bit  <= 1'b0;
 
       // reset noise register
-      LFSR <= 17'h1ffff;
+      lfsr <= 17'h1ffff;
 
     end else begin
       // register write
-      if ((in_wr == 1'b1) && (OLD_WR == 1'b0)) begin
-        R[ in_reg ] <= in_val;
+      if ((in_wr == 1'b1) && (old_wr == 1'b0)) begin
+        r[ in_reg ] <= in_val;
       end
 
-      if (CLK_DIV == 0) begin
+      if (clk_div == 0) begin
 
-        // update tone generator A
-        if (CA_TONE == 0) begin
-          CA_BIT <= ~CA_BIT;
-          CA_TONE <= CA_FREQ;
+        // update tone generator a
+        if (ca_tone == 0) begin
+          ca_bit <= ~ca_bit;
+          ca_tone <= ca_freq;
         end else begin
-          CA_TONE <= CA_TONE - 12'b1;
+          ca_tone <= ca_tone - 12'b1;
         end
 
-        // update tone generator B
-        if (CB_TONE == 0) begin
-          CB_BIT <= ~CB_BIT;
-          CB_TONE <= CB_FREQ;
+        // update tone generator b
+        if (cb_tone == 0) begin
+          cb_bit <= ~cb_bit;
+          cb_tone <= cb_freq;
         end else begin
-          CB_TONE <= CB_TONE - 12'b1;
+          cb_tone <= cb_tone - 12'b1;
         end
 
-        // update tone generator C
-        if (CC_TONE == 0) begin
-          CC_BIT <= ~CC_BIT;
-          CC_TONE <= CC_FREQ;
+        // update tone generator c
+        if (cc_tone == 0) begin
+          cc_bit <= ~cc_bit;
+          cc_tone <= cc_freq;
         end else begin
-          CC_TONE <= CC_TONE - 12'b1;
+          cc_tone <= cc_tone - 12'b1;
         end
 
       end
 
-      if (NOZ_DIV == 0) begin
-        LFSR <= { LFSR_IN, LFSR[16:1] };
+      if (noz_div == 0) begin
+        lfsr <= { lfsr_in, lfsr[16:1] };
       end
     end
 
     // increment clock dividers
-    CLK_DIV <= CLK_DIV + 3'b1;
-    NOZ_DIV <= NOZ_DIV + 3'b1;
+    clk_div <= clk_div + 3'b1;
+    noz_div <= noz_div + 3'b1;
 
-    // track the old WR register
-    OLD_WR <= in_wr;
+    // track the old wr register
+    old_wr <= in_wr;
   end
 
 endmodule

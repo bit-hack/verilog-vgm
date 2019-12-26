@@ -31,22 +31,22 @@ VL_MODULE(Vsn76489) {
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
-    VL_SIG8(v__DOT__OLD_WR,0,0);
-    VL_SIG8(v__DOT__CLK_DIV,7,0);
-    VL_SIG8(v__DOT__LATCH_CHAN,1,0);
+    VL_SIG8(v__DOT__old_wr,0,0);
+    VL_SIG8(v__DOT__clk_div,7,0);
+    VL_SIG8(v__DOT__latch_chan,1,0);
     //char	__VpadToAlign15[1];
-    VL_SIG16(v__DOT__LFSR,15,0);
-    VL_SIG16(v__DOT__C0_MIX,15,0);
-    VL_SIG16(v__DOT__C1_MIX,15,0);
-    VL_SIG16(v__DOT__C2_MIX,15,0);
-    VL_SIG16(v__DOT__NZ_MIX,15,0);
+    VL_SIG16(v__DOT__lfsr,15,0);
+    VL_SIG16(v__DOT__c0_mix,15,0);
+    VL_SIG16(v__DOT__c1_mix,15,0);
+    VL_SIG16(v__DOT__c2_mix,15,0);
+    VL_SIG16(v__DOT__nz_mix,15,0);
     //char	__VpadToAlign26[6];
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
-    VL_SIG16(v__DOT__C_FREQ[3],9,0);
-    VL_SIG16(v__DOT__C_TONE[3],9,0);
-    VL_SIG8(v__DOT__C_AMP[4],3,0);
+    VL_SIG16(v__DOT__c_freq[3],9,0);
+    VL_SIG16(v__DOT__c_tone[3],9,0);
+    VL_SIG8(v__DOT__c_amp[4],3,0);
     //char	__VpadToAlign112[2];
-    VL_SIG8(v__DOT__C_BIT[3],0,0);
+    VL_SIG8(v__DOT__c_bit[3],0,0);
     //char	__VpadToAlign117[3];
     
     // LOCAL VARIABLES

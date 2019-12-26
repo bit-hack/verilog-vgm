@@ -32,36 +32,36 @@ VL_MODULE(Vym2149) {
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
-    VL_SIG8(v__DOT__OLD_WR,0,0);
-    VL_SIG8(v__DOT__CA_BIT,0,0);
-    VL_SIG8(v__DOT__CB_BIT,0,0);
-    VL_SIG8(v__DOT__CC_BIT,0,0);
-    VL_SIG8(v__DOT__CA_TONE_ENABLE,0,0);
-    VL_SIG8(v__DOT__CB_TONE_ENABLE,0,0);
-    VL_SIG8(v__DOT__CC_TONE_ENABLE,0,0);
-    VL_SIG8(v__DOT__CA_LFSR_ENABLE,0,0);
-    VL_SIG8(v__DOT__CB_LFSR_ENABLE,0,0);
-    VL_SIG8(v__DOT__CC_LFSR_ENABLE,0,0);
-    VL_SIG8(v__DOT__CA_AMP,3,0);
-    VL_SIG8(v__DOT__CB_AMP,3,0);
-    VL_SIG8(v__DOT__CC_AMP,3,0);
-    VL_SIG8(v__DOT__CLK_DIV,2,0);
-    VL_SIG8(v__DOT__NOZ_DIV,2,0);
+    VL_SIG8(v__DOT__old_wr,0,0);
+    VL_SIG8(v__DOT__ca_bit,0,0);
+    VL_SIG8(v__DOT__cb_bit,0,0);
+    VL_SIG8(v__DOT__cc_bit,0,0);
+    VL_SIG8(v__DOT__ca_tone_enable,0,0);
+    VL_SIG8(v__DOT__cb_tone_enable,0,0);
+    VL_SIG8(v__DOT__cc_tone_enable,0,0);
+    VL_SIG8(v__DOT__ca_lfsr_enable,0,0);
+    VL_SIG8(v__DOT__cb_lfsr_enable,0,0);
+    VL_SIG8(v__DOT__cc_lfsr_enable,0,0);
+    VL_SIG8(v__DOT__ca_amp,3,0);
+    VL_SIG8(v__DOT__cb_amp,3,0);
+    VL_SIG8(v__DOT__cc_amp,3,0);
+    VL_SIG8(v__DOT__clk_div,2,0);
+    VL_SIG8(v__DOT__noz_div,2,0);
     //char	__VpadToAlign27[1];
-    VL_SIG16(v__DOT__CA_FREQ,11,0);
-    VL_SIG16(v__DOT__CB_FREQ,11,0);
-    VL_SIG16(v__DOT__CC_FREQ,11,0);
-    VL_SIG16(v__DOT__CA_TONE,11,0);
-    VL_SIG16(v__DOT__CB_TONE,11,0);
-    VL_SIG16(v__DOT__CC_TONE,11,0);
-    VL_SIG16(v__DOT__CA_MIX,15,0);
-    VL_SIG16(v__DOT__CB_MIX,15,0);
-    VL_SIG16(v__DOT__CC_MIX,15,0);
+    VL_SIG16(v__DOT__ca_freq,11,0);
+    VL_SIG16(v__DOT__cb_freq,11,0);
+    VL_SIG16(v__DOT__cc_freq,11,0);
+    VL_SIG16(v__DOT__ca_tone,11,0);
+    VL_SIG16(v__DOT__cb_tone,11,0);
+    VL_SIG16(v__DOT__cc_tone,11,0);
+    VL_SIG16(v__DOT__ca_mix,15,0);
+    VL_SIG16(v__DOT__cb_mix,15,0);
+    VL_SIG16(v__DOT__cc_mix,15,0);
     //char	__VpadToAlign46[2];
-    VL_SIG(v__DOT__LFSR,16,0);
+    VL_SIG(v__DOT__lfsr,16,0);
     //char	__VpadToAlign52[4];
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
-    VL_SIG8(v__DOT__R[16],7,0);
+    VL_SIG8(v__DOT__r[16],7,0);
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code

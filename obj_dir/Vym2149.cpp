@@ -26,34 +26,34 @@ VL_CTOR_IMP(Vym2149) {
     { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
 	    v__DOT__AMP_TABLE[__Vi0] = VL_RAND_RESET_I(16);
     }}
-    v__DOT__OLD_WR = VL_RAND_RESET_I(1);
+    v__DOT__old_wr = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
-	    v__DOT__R[__Vi0] = VL_RAND_RESET_I(8);
+	    v__DOT__r[__Vi0] = VL_RAND_RESET_I(8);
     }}
-    v__DOT__CA_FREQ = VL_RAND_RESET_I(12);
-    v__DOT__CB_FREQ = VL_RAND_RESET_I(12);
-    v__DOT__CC_FREQ = VL_RAND_RESET_I(12);
-    v__DOT__CA_TONE = VL_RAND_RESET_I(12);
-    v__DOT__CB_TONE = VL_RAND_RESET_I(12);
-    v__DOT__CC_TONE = VL_RAND_RESET_I(12);
-    v__DOT__CA_BIT = VL_RAND_RESET_I(1);
-    v__DOT__CB_BIT = VL_RAND_RESET_I(1);
-    v__DOT__CC_BIT = VL_RAND_RESET_I(1);
-    v__DOT__CA_MIX = VL_RAND_RESET_I(16);
-    v__DOT__CB_MIX = VL_RAND_RESET_I(16);
-    v__DOT__CC_MIX = VL_RAND_RESET_I(16);
-    v__DOT__CA_TONE_ENABLE = VL_RAND_RESET_I(1);
-    v__DOT__CB_TONE_ENABLE = VL_RAND_RESET_I(1);
-    v__DOT__CC_TONE_ENABLE = VL_RAND_RESET_I(1);
-    v__DOT__CA_LFSR_ENABLE = VL_RAND_RESET_I(1);
-    v__DOT__CB_LFSR_ENABLE = VL_RAND_RESET_I(1);
-    v__DOT__CC_LFSR_ENABLE = VL_RAND_RESET_I(1);
-    v__DOT__CA_AMP = VL_RAND_RESET_I(4);
-    v__DOT__CB_AMP = VL_RAND_RESET_I(4);
-    v__DOT__CC_AMP = VL_RAND_RESET_I(4);
-    v__DOT__LFSR = VL_RAND_RESET_I(17);
-    v__DOT__CLK_DIV = VL_RAND_RESET_I(3);
-    v__DOT__NOZ_DIV = VL_RAND_RESET_I(3);
+    v__DOT__ca_freq = VL_RAND_RESET_I(12);
+    v__DOT__cb_freq = VL_RAND_RESET_I(12);
+    v__DOT__cc_freq = VL_RAND_RESET_I(12);
+    v__DOT__ca_tone = VL_RAND_RESET_I(12);
+    v__DOT__cb_tone = VL_RAND_RESET_I(12);
+    v__DOT__cc_tone = VL_RAND_RESET_I(12);
+    v__DOT__ca_bit = VL_RAND_RESET_I(1);
+    v__DOT__cb_bit = VL_RAND_RESET_I(1);
+    v__DOT__cc_bit = VL_RAND_RESET_I(1);
+    v__DOT__ca_mix = VL_RAND_RESET_I(16);
+    v__DOT__cb_mix = VL_RAND_RESET_I(16);
+    v__DOT__cc_mix = VL_RAND_RESET_I(16);
+    v__DOT__ca_tone_enable = VL_RAND_RESET_I(1);
+    v__DOT__cb_tone_enable = VL_RAND_RESET_I(1);
+    v__DOT__cc_tone_enable = VL_RAND_RESET_I(1);
+    v__DOT__ca_lfsr_enable = VL_RAND_RESET_I(1);
+    v__DOT__cb_lfsr_enable = VL_RAND_RESET_I(1);
+    v__DOT__cc_lfsr_enable = VL_RAND_RESET_I(1);
+    v__DOT__ca_amp = VL_RAND_RESET_I(4);
+    v__DOT__cb_amp = VL_RAND_RESET_I(4);
+    v__DOT__cc_amp = VL_RAND_RESET_I(4);
+    v__DOT__lfsr = VL_RAND_RESET_I(17);
+    v__DOT__clk_div = VL_RAND_RESET_I(3);
+    v__DOT__noz_div = VL_RAND_RESET_I(3);
     __Vclklast__TOP__in_clk = 0;
 }
 
@@ -124,150 +124,150 @@ void Vym2149::_sequent__TOP__1(Vym2149__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vym2149::_sequent__TOP__1\n"); );
     Vym2149* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    VL_SIG8(__Vdlyvset__v__DOT__R__v0,0,0);
-    VL_SIG8(__Vdly__v__DOT__CA_BIT,0,0);
-    VL_SIG8(__Vdly__v__DOT__CB_BIT,0,0);
-    VL_SIG8(__Vdly__v__DOT__CC_BIT,0,0);
-    VL_SIG8(__Vdlyvset__v__DOT__R__v1,0,0);
-    VL_SIG8(__Vdlyvdim0__v__DOT__R__v9,3,0);
-    VL_SIG8(__Vdlyvval__v__DOT__R__v9,7,0);
-    VL_SIG8(__Vdlyvset__v__DOT__R__v9,0,0);
-    VL_SIG8(__Vdly__v__DOT__CLK_DIV,2,0);
-    VL_SIG8(__Vdly__v__DOT__NOZ_DIV,2,0);
-    VL_SIG8(__Vdly__v__DOT__OLD_WR,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__r__v0,0,0);
+    VL_SIG8(__Vdly__v__DOT__ca_bit,0,0);
+    VL_SIG8(__Vdly__v__DOT__cb_bit,0,0);
+    VL_SIG8(__Vdly__v__DOT__cc_bit,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__r__v1,0,0);
+    VL_SIG8(__Vdlyvdim0__v__DOT__r__v9,3,0);
+    VL_SIG8(__Vdlyvval__v__DOT__r__v9,7,0);
+    VL_SIG8(__Vdlyvset__v__DOT__r__v9,0,0);
+    VL_SIG8(__Vdly__v__DOT__clk_div,2,0);
+    VL_SIG8(__Vdly__v__DOT__noz_div,2,0);
+    VL_SIG8(__Vdly__v__DOT__old_wr,0,0);
     //char	__VpadToAlign55[1];
-    VL_SIG16(__Vdly__v__DOT__CA_TONE,11,0);
-    VL_SIG16(__Vdly__v__DOT__CB_TONE,11,0);
-    VL_SIG16(__Vdly__v__DOT__CC_TONE,11,0);
+    VL_SIG16(__Vdly__v__DOT__ca_tone,11,0);
+    VL_SIG16(__Vdly__v__DOT__cb_tone,11,0);
+    VL_SIG16(__Vdly__v__DOT__cc_tone,11,0);
     //char	__VpadToAlign62[2];
-    VL_SIG(__Vdly__v__DOT__LFSR,16,0);
+    VL_SIG(__Vdly__v__DOT__lfsr,16,0);
     // Body
-    __Vdly__v__DOT__CC_TONE = vlTOPp->v__DOT__CC_TONE;
-    __Vdly__v__DOT__CA_TONE = vlTOPp->v__DOT__CA_TONE;
-    __Vdly__v__DOT__CB_TONE = vlTOPp->v__DOT__CB_TONE;
-    __Vdly__v__DOT__NOZ_DIV = vlTOPp->v__DOT__NOZ_DIV;
-    __Vdly__v__DOT__CLK_DIV = vlTOPp->v__DOT__CLK_DIV;
-    __Vdly__v__DOT__OLD_WR = vlTOPp->v__DOT__OLD_WR;
-    __Vdly__v__DOT__CB_BIT = vlTOPp->v__DOT__CB_BIT;
-    __Vdly__v__DOT__CA_BIT = vlTOPp->v__DOT__CA_BIT;
-    __Vdly__v__DOT__CC_BIT = vlTOPp->v__DOT__CC_BIT;
-    __Vdly__v__DOT__LFSR = vlTOPp->v__DOT__LFSR;
-    __Vdlyvset__v__DOT__R__v0 = 0;
-    __Vdlyvset__v__DOT__R__v1 = 0;
-    __Vdlyvset__v__DOT__R__v9 = 0;
+    __Vdly__v__DOT__cc_tone = vlTOPp->v__DOT__cc_tone;
+    __Vdly__v__DOT__ca_tone = vlTOPp->v__DOT__ca_tone;
+    __Vdly__v__DOT__cb_tone = vlTOPp->v__DOT__cb_tone;
+    __Vdly__v__DOT__noz_div = vlTOPp->v__DOT__noz_div;
+    __Vdly__v__DOT__clk_div = vlTOPp->v__DOT__clk_div;
+    __Vdly__v__DOT__old_wr = vlTOPp->v__DOT__old_wr;
+    __Vdly__v__DOT__cb_bit = vlTOPp->v__DOT__cb_bit;
+    __Vdly__v__DOT__ca_bit = vlTOPp->v__DOT__ca_bit;
+    __Vdly__v__DOT__cc_bit = vlTOPp->v__DOT__cc_bit;
+    __Vdly__v__DOT__lfsr = vlTOPp->v__DOT__lfsr;
+    __Vdlyvset__v__DOT__r__v0 = 0;
+    __Vdlyvset__v__DOT__r__v1 = 0;
+    __Vdlyvset__v__DOT__r__v9 = 0;
     // ALWAYS at source/ym2149.v:85
     if (vlTOPp->in_rst) {
-	__Vdlyvset__v__DOT__R__v0 = 1;
-	__Vdly__v__DOT__CA_TONE = 0;
-	__Vdly__v__DOT__CB_TONE = 0;
-	__Vdly__v__DOT__CC_TONE = 0;
-	__Vdly__v__DOT__CA_BIT = 0;
-	__Vdly__v__DOT__CB_BIT = 0;
-	__Vdly__v__DOT__CC_BIT = 0;
-	__Vdly__v__DOT__LFSR = 0x1ffff;
-	__Vdlyvset__v__DOT__R__v1 = 1;
+	__Vdlyvset__v__DOT__r__v0 = 1;
+	__Vdly__v__DOT__ca_tone = 0;
+	__Vdly__v__DOT__cb_tone = 0;
+	__Vdly__v__DOT__cc_tone = 0;
+	__Vdly__v__DOT__ca_bit = 0;
+	__Vdly__v__DOT__cb_bit = 0;
+	__Vdly__v__DOT__cc_bit = 0;
+	__Vdly__v__DOT__lfsr = 0x1ffff;
+	__Vdlyvset__v__DOT__r__v1 = 1;
     } else {
-	if ((0 == (IData)(vlTOPp->v__DOT__CLK_DIV))) {
-	    if ((0 == (IData)(vlTOPp->v__DOT__CA_TONE))) {
-		__Vdly__v__DOT__CA_BIT = (1 & (~ (IData)(vlTOPp->v__DOT__CA_BIT)));
-		__Vdly__v__DOT__CA_TONE = vlTOPp->v__DOT__CA_FREQ;
+	if ((0 == (IData)(vlTOPp->v__DOT__clk_div))) {
+	    if ((0 == (IData)(vlTOPp->v__DOT__ca_tone))) {
+		__Vdly__v__DOT__ca_bit = (1 & (~ (IData)(vlTOPp->v__DOT__ca_bit)));
+		__Vdly__v__DOT__ca_tone = vlTOPp->v__DOT__ca_freq;
 	    } else {
-		__Vdly__v__DOT__CA_TONE = (0xfff & 
-					   ((IData)(vlTOPp->v__DOT__CA_TONE) 
+		__Vdly__v__DOT__ca_tone = (0xfff & 
+					   ((IData)(vlTOPp->v__DOT__ca_tone) 
 					    - (IData)(1)));
 	    }
-	    if ((0 == (IData)(vlTOPp->v__DOT__CB_TONE))) {
-		__Vdly__v__DOT__CB_BIT = (1 & (~ (IData)(vlTOPp->v__DOT__CB_BIT)));
-		__Vdly__v__DOT__CB_TONE = vlTOPp->v__DOT__CB_FREQ;
+	    if ((0 == (IData)(vlTOPp->v__DOT__cb_tone))) {
+		__Vdly__v__DOT__cb_bit = (1 & (~ (IData)(vlTOPp->v__DOT__cb_bit)));
+		__Vdly__v__DOT__cb_tone = vlTOPp->v__DOT__cb_freq;
 	    } else {
-		__Vdly__v__DOT__CB_TONE = (0xfff & 
-					   ((IData)(vlTOPp->v__DOT__CB_TONE) 
+		__Vdly__v__DOT__cb_tone = (0xfff & 
+					   ((IData)(vlTOPp->v__DOT__cb_tone) 
 					    - (IData)(1)));
 	    }
-	    if ((0 == (IData)(vlTOPp->v__DOT__CC_TONE))) {
-		__Vdly__v__DOT__CC_BIT = (1 & (~ (IData)(vlTOPp->v__DOT__CC_BIT)));
-		__Vdly__v__DOT__CC_TONE = vlTOPp->v__DOT__CC_FREQ;
+	    if ((0 == (IData)(vlTOPp->v__DOT__cc_tone))) {
+		__Vdly__v__DOT__cc_bit = (1 & (~ (IData)(vlTOPp->v__DOT__cc_bit)));
+		__Vdly__v__DOT__cc_tone = vlTOPp->v__DOT__cc_freq;
 	    } else {
-		__Vdly__v__DOT__CC_TONE = (0xfff & 
-					   ((IData)(vlTOPp->v__DOT__CC_TONE) 
+		__Vdly__v__DOT__cc_tone = (0xfff & 
+					   ((IData)(vlTOPp->v__DOT__cc_tone) 
 					    - (IData)(1)));
 	    }
 	}
-	if ((0 == (IData)(vlTOPp->v__DOT__NOZ_DIV))) {
-	    __Vdly__v__DOT__LFSR = ((0x10000 & ((vlTOPp->v__DOT__LFSR 
+	if ((0 == (IData)(vlTOPp->v__DOT__noz_div))) {
+	    __Vdly__v__DOT__lfsr = ((0x10000 & ((vlTOPp->v__DOT__lfsr 
 						 << 0x10) 
 						^ (0xffff0000 
-						   & (vlTOPp->v__DOT__LFSR 
+						   & (vlTOPp->v__DOT__lfsr 
 						      << 0xd)))) 
-				    | (0xffff & (vlTOPp->v__DOT__LFSR 
+				    | (0xffff & (vlTOPp->v__DOT__lfsr 
 						 >> 1)));
 	}
-	if (((IData)(vlTOPp->in_wr) & (~ (IData)(vlTOPp->v__DOT__OLD_WR)))) {
-	    __Vdlyvval__v__DOT__R__v9 = vlTOPp->in_val;
-	    __Vdlyvset__v__DOT__R__v9 = 1;
-	    __Vdlyvdim0__v__DOT__R__v9 = vlTOPp->in_reg;
+	if (((IData)(vlTOPp->in_wr) & (~ (IData)(vlTOPp->v__DOT__old_wr)))) {
+	    __Vdlyvval__v__DOT__r__v9 = vlTOPp->in_val;
+	    __Vdlyvset__v__DOT__r__v9 = 1;
+	    __Vdlyvdim0__v__DOT__r__v9 = vlTOPp->in_reg;
 	}
     }
-    __Vdly__v__DOT__CLK_DIV = (7 & ((IData)(1) + (IData)(vlTOPp->v__DOT__CLK_DIV)));
-    __Vdly__v__DOT__NOZ_DIV = (7 & ((IData)(1) + (IData)(vlTOPp->v__DOT__NOZ_DIV)));
-    __Vdly__v__DOT__OLD_WR = vlTOPp->in_wr;
-    vlTOPp->v__DOT__OLD_WR = __Vdly__v__DOT__OLD_WR;
-    vlTOPp->v__DOT__CB_TONE = __Vdly__v__DOT__CB_TONE;
-    vlTOPp->v__DOT__CLK_DIV = __Vdly__v__DOT__CLK_DIV;
-    vlTOPp->v__DOT__NOZ_DIV = __Vdly__v__DOT__NOZ_DIV;
-    vlTOPp->v__DOT__CC_TONE = __Vdly__v__DOT__CC_TONE;
-    vlTOPp->v__DOT__CA_TONE = __Vdly__v__DOT__CA_TONE;
-    vlTOPp->v__DOT__CC_BIT = __Vdly__v__DOT__CC_BIT;
-    vlTOPp->v__DOT__CB_BIT = __Vdly__v__DOT__CB_BIT;
-    vlTOPp->v__DOT__CA_BIT = __Vdly__v__DOT__CA_BIT;
-    vlTOPp->v__DOT__LFSR = __Vdly__v__DOT__LFSR;
+    __Vdly__v__DOT__clk_div = (7 & ((IData)(1) + (IData)(vlTOPp->v__DOT__clk_div)));
+    __Vdly__v__DOT__noz_div = (7 & ((IData)(1) + (IData)(vlTOPp->v__DOT__noz_div)));
+    __Vdly__v__DOT__old_wr = vlTOPp->in_wr;
+    vlTOPp->v__DOT__old_wr = __Vdly__v__DOT__old_wr;
+    vlTOPp->v__DOT__cb_tone = __Vdly__v__DOT__cb_tone;
+    vlTOPp->v__DOT__clk_div = __Vdly__v__DOT__clk_div;
+    vlTOPp->v__DOT__noz_div = __Vdly__v__DOT__noz_div;
+    vlTOPp->v__DOT__cc_tone = __Vdly__v__DOT__cc_tone;
+    vlTOPp->v__DOT__ca_tone = __Vdly__v__DOT__ca_tone;
+    vlTOPp->v__DOT__cc_bit = __Vdly__v__DOT__cc_bit;
+    vlTOPp->v__DOT__cb_bit = __Vdly__v__DOT__cb_bit;
+    vlTOPp->v__DOT__ca_bit = __Vdly__v__DOT__ca_bit;
+    vlTOPp->v__DOT__lfsr = __Vdly__v__DOT__lfsr;
     // ALWAYSPOST at source/ym2149.v:89
-    if (__Vdlyvset__v__DOT__R__v0) {
-	vlTOPp->v__DOT__R[0] = 0xff;
+    if (__Vdlyvset__v__DOT__r__v0) {
+	vlTOPp->v__DOT__r[0] = 0xff;
     }
-    if (__Vdlyvset__v__DOT__R__v1) {
-	vlTOPp->v__DOT__R[1] = 0xff;
-	vlTOPp->v__DOT__R[2] = 0xff;
-	vlTOPp->v__DOT__R[3] = 0xff;
-	vlTOPp->v__DOT__R[4] = 0xff;
-	vlTOPp->v__DOT__R[5] = 0xff;
-	vlTOPp->v__DOT__R[0xa] = 0;
-	vlTOPp->v__DOT__R[0xb] = 0;
-	vlTOPp->v__DOT__R[0xc] = 0;
+    if (__Vdlyvset__v__DOT__r__v1) {
+	vlTOPp->v__DOT__r[1] = 0xff;
+	vlTOPp->v__DOT__r[2] = 0xff;
+	vlTOPp->v__DOT__r[3] = 0xff;
+	vlTOPp->v__DOT__r[4] = 0xff;
+	vlTOPp->v__DOT__r[5] = 0xff;
+	vlTOPp->v__DOT__r[0xa] = 0;
+	vlTOPp->v__DOT__r[0xb] = 0;
+	vlTOPp->v__DOT__r[0xc] = 0;
     }
-    if (__Vdlyvset__v__DOT__R__v9) {
-	vlTOPp->v__DOT__R[(IData)(__Vdlyvdim0__v__DOT__R__v9)] 
-	    = __Vdlyvval__v__DOT__R__v9;
+    if (__Vdlyvset__v__DOT__r__v9) {
+	vlTOPp->v__DOT__r[(IData)(__Vdlyvdim0__v__DOT__r__v9)] 
+	    = __Vdlyvval__v__DOT__r__v9;
     }
-    vlTOPp->v__DOT__CA_FREQ = ((0xf00 & ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_freq = ((0xf00 & ((IData)(vlTOPp->v__DOT__r)
 					 [1] << 8)) 
-			       | (IData)(vlTOPp->v__DOT__R)
+			       | (IData)(vlTOPp->v__DOT__r)
 			       [0]);
-    vlTOPp->v__DOT__CC_FREQ = ((0xf00 & ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_freq = ((0xf00 & ((IData)(vlTOPp->v__DOT__r)
 					 [5] << 8)) 
-			       | (IData)(vlTOPp->v__DOT__R)
+			       | (IData)(vlTOPp->v__DOT__r)
 			       [4]);
-    vlTOPp->v__DOT__CB_FREQ = ((0xf00 & ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_freq = ((0xf00 & ((IData)(vlTOPp->v__DOT__r)
 					 [3] << 8)) 
-			       | (IData)(vlTOPp->v__DOT__R)
+			       | (IData)(vlTOPp->v__DOT__r)
 			       [2]);
-    vlTOPp->v__DOT__CB_TONE_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_tone_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 1)));
-    vlTOPp->v__DOT__CA_TONE_ENABLE = (1 & (~ (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_tone_enable = (1 & (~ (IData)(vlTOPp->v__DOT__r)
 					   [7]));
-    vlTOPp->v__DOT__CC_AMP = (0xf & (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_amp = (0xf & (IData)(vlTOPp->v__DOT__r)
 			      [0xa]);
-    vlTOPp->v__DOT__CB_AMP = (0xf & (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_amp = (0xf & (IData)(vlTOPp->v__DOT__r)
 			      [9]);
-    vlTOPp->v__DOT__CA_AMP = (0xf & (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_amp = (0xf & (IData)(vlTOPp->v__DOT__r)
 			      [8]);
-    vlTOPp->v__DOT__CC_LFSR_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_lfsr_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 5)));
-    vlTOPp->v__DOT__CB_LFSR_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_lfsr_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 4)));
-    vlTOPp->v__DOT__CA_LFSR_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_lfsr_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 3)));
-    vlTOPp->v__DOT__CC_TONE_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_tone_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 2)));
 }
 
@@ -275,78 +275,78 @@ void Vym2149::_settle__TOP__2(Vym2149__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vym2149::_settle__TOP__2\n"); );
     Vym2149* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->v__DOT__CC_FREQ = ((0xf00 & ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_freq = ((0xf00 & ((IData)(vlTOPp->v__DOT__r)
 					 [5] << 8)) 
-			       | (IData)(vlTOPp->v__DOT__R)
+			       | (IData)(vlTOPp->v__DOT__r)
 			       [4]);
-    vlTOPp->v__DOT__CB_FREQ = ((0xf00 & ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_freq = ((0xf00 & ((IData)(vlTOPp->v__DOT__r)
 					 [3] << 8)) 
-			       | (IData)(vlTOPp->v__DOT__R)
+			       | (IData)(vlTOPp->v__DOT__r)
 			       [2]);
-    vlTOPp->v__DOT__CA_FREQ = ((0xf00 & ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_freq = ((0xf00 & ((IData)(vlTOPp->v__DOT__r)
 					 [1] << 8)) 
-			       | (IData)(vlTOPp->v__DOT__R)
+			       | (IData)(vlTOPp->v__DOT__r)
 			       [0]);
-    vlTOPp->v__DOT__CC_AMP = (0xf & (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_amp = (0xf & (IData)(vlTOPp->v__DOT__r)
 			      [0xa]);
-    vlTOPp->v__DOT__CB_AMP = (0xf & (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_amp = (0xf & (IData)(vlTOPp->v__DOT__r)
 			      [9]);
-    vlTOPp->v__DOT__CA_AMP = (0xf & (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_amp = (0xf & (IData)(vlTOPp->v__DOT__r)
 			      [8]);
-    vlTOPp->v__DOT__CC_LFSR_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_lfsr_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 5)));
-    vlTOPp->v__DOT__CB_LFSR_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_lfsr_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 4)));
-    vlTOPp->v__DOT__CA_LFSR_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_lfsr_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 3)));
-    vlTOPp->v__DOT__CC_TONE_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cc_tone_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 2)));
-    vlTOPp->v__DOT__CB_TONE_ENABLE = (1 & (~ ((IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__cb_tone_enable = (1 & (~ ((IData)(vlTOPp->v__DOT__r)
 					      [7] >> 1)));
-    vlTOPp->v__DOT__CA_TONE_ENABLE = (1 & (~ (IData)(vlTOPp->v__DOT__R)
+    vlTOPp->v__DOT__ca_tone_enable = (1 & (~ (IData)(vlTOPp->v__DOT__r)
 					   [7]));
-    vlTOPp->v__DOT__CC_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((((IData)(vlTOPp->v__DOT__CC_BIT) & (IData)(vlTOPp->v__DOT__CC_TONE_ENABLE)) 
-	    ^ (vlTOPp->v__DOT__LFSR & (IData)(vlTOPp->v__DOT__CC_LFSR_ENABLE))) 
-	   << 4) | (IData)(vlTOPp->v__DOT__CC_AMP))];
-    vlTOPp->v__DOT__CB_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((((IData)(vlTOPp->v__DOT__CB_BIT) & (IData)(vlTOPp->v__DOT__CB_TONE_ENABLE)) 
-	    ^ (vlTOPp->v__DOT__LFSR & (IData)(vlTOPp->v__DOT__CB_LFSR_ENABLE))) 
-	   << 4) | (IData)(vlTOPp->v__DOT__CB_AMP))];
-    vlTOPp->v__DOT__CA_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((((IData)(vlTOPp->v__DOT__CA_BIT) & (IData)(vlTOPp->v__DOT__CA_TONE_ENABLE)) 
-	    ^ (vlTOPp->v__DOT__LFSR & (IData)(vlTOPp->v__DOT__CA_LFSR_ENABLE))) 
-	   << 4) | (IData)(vlTOPp->v__DOT__CA_AMP))];
+    vlTOPp->v__DOT__cc_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((((IData)(vlTOPp->v__DOT__cc_bit) & (IData)(vlTOPp->v__DOT__cc_tone_enable)) 
+	    ^ (vlTOPp->v__DOT__lfsr & (IData)(vlTOPp->v__DOT__cc_lfsr_enable))) 
+	   << 4) | (IData)(vlTOPp->v__DOT__cc_amp))];
+    vlTOPp->v__DOT__cb_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((((IData)(vlTOPp->v__DOT__cb_bit) & (IData)(vlTOPp->v__DOT__cb_tone_enable)) 
+	    ^ (vlTOPp->v__DOT__lfsr & (IData)(vlTOPp->v__DOT__cb_lfsr_enable))) 
+	   << 4) | (IData)(vlTOPp->v__DOT__cb_amp))];
+    vlTOPp->v__DOT__ca_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((((IData)(vlTOPp->v__DOT__ca_bit) & (IData)(vlTOPp->v__DOT__ca_tone_enable)) 
+	    ^ (vlTOPp->v__DOT__lfsr & (IData)(vlTOPp->v__DOT__ca_lfsr_enable))) 
+	   << 4) | (IData)(vlTOPp->v__DOT__ca_amp))];
 }
 
 void Vym2149::_sequent__TOP__3(Vym2149__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vym2149::_sequent__TOP__3\n"); );
     Vym2149* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->v__DOT__CC_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((((IData)(vlTOPp->v__DOT__CC_BIT) & (IData)(vlTOPp->v__DOT__CC_TONE_ENABLE)) 
-	    ^ (vlTOPp->v__DOT__LFSR & (IData)(vlTOPp->v__DOT__CC_LFSR_ENABLE))) 
-	   << 4) | (IData)(vlTOPp->v__DOT__CC_AMP))];
-    vlTOPp->v__DOT__CB_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((((IData)(vlTOPp->v__DOT__CB_BIT) & (IData)(vlTOPp->v__DOT__CB_TONE_ENABLE)) 
-	    ^ (vlTOPp->v__DOT__LFSR & (IData)(vlTOPp->v__DOT__CB_LFSR_ENABLE))) 
-	   << 4) | (IData)(vlTOPp->v__DOT__CB_AMP))];
-    vlTOPp->v__DOT__CA_MIX = (IData)(vlTOPp->v__DOT__AMP_TABLE)
-	[(((((IData)(vlTOPp->v__DOT__CA_BIT) & (IData)(vlTOPp->v__DOT__CA_TONE_ENABLE)) 
-	    ^ (vlTOPp->v__DOT__LFSR & (IData)(vlTOPp->v__DOT__CA_LFSR_ENABLE))) 
-	   << 4) | (IData)(vlTOPp->v__DOT__CA_AMP))];
-    vlTOPp->out_lr = (0xffff & (((IData)(vlTOPp->v__DOT__CA_MIX) 
-				 + (IData)(vlTOPp->v__DOT__CB_MIX)) 
-				+ (IData)(vlTOPp->v__DOT__CC_MIX)));
+    vlTOPp->v__DOT__cc_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((((IData)(vlTOPp->v__DOT__cc_bit) & (IData)(vlTOPp->v__DOT__cc_tone_enable)) 
+	    ^ (vlTOPp->v__DOT__lfsr & (IData)(vlTOPp->v__DOT__cc_lfsr_enable))) 
+	   << 4) | (IData)(vlTOPp->v__DOT__cc_amp))];
+    vlTOPp->v__DOT__cb_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((((IData)(vlTOPp->v__DOT__cb_bit) & (IData)(vlTOPp->v__DOT__cb_tone_enable)) 
+	    ^ (vlTOPp->v__DOT__lfsr & (IData)(vlTOPp->v__DOT__cb_lfsr_enable))) 
+	   << 4) | (IData)(vlTOPp->v__DOT__cb_amp))];
+    vlTOPp->v__DOT__ca_mix = (IData)(vlTOPp->v__DOT__AMP_TABLE)
+	[(((((IData)(vlTOPp->v__DOT__ca_bit) & (IData)(vlTOPp->v__DOT__ca_tone_enable)) 
+	    ^ (vlTOPp->v__DOT__lfsr & (IData)(vlTOPp->v__DOT__ca_lfsr_enable))) 
+	   << 4) | (IData)(vlTOPp->v__DOT__ca_amp))];
+    vlTOPp->out_lr = (0xffff & (((IData)(vlTOPp->v__DOT__ca_mix) 
+				 + (IData)(vlTOPp->v__DOT__cb_mix)) 
+				+ (IData)(vlTOPp->v__DOT__cc_mix)));
 }
 
 void Vym2149::_settle__TOP__4(Vym2149__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_PRINTF("    Vym2149::_settle__TOP__4\n"); );
     Vym2149* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->out_lr = (0xffff & (((IData)(vlTOPp->v__DOT__CA_MIX) 
-				 + (IData)(vlTOPp->v__DOT__CB_MIX)) 
-				+ (IData)(vlTOPp->v__DOT__CC_MIX)));
+    vlTOPp->out_lr = (0xffff & (((IData)(vlTOPp->v__DOT__ca_mix) 
+				 + (IData)(vlTOPp->v__DOT__cb_mix)) 
+				+ (IData)(vlTOPp->v__DOT__cc_mix)));
 }
 
 void Vym2149::_eval(Vym2149__Syms* __restrict vlSymsp) {
