@@ -4,6 +4,60 @@
 // in NES runs from ~1.79 MHz clock
 // frame clock is ~240Hz
 
+module nesapu_env(
+  input in_clk,
+  input in_rst,
+  input [3:0] in_vol,
+  input in_loop,
+  input in_const,
+  input in_start,
+  input [11:0] in_frame_cnt,
+  input [4:0]  in_frame_step,
+  output [3:0] out_decay
+);
+
+  assign out_decay = in_const ? in_vol : decay;
+
+  reg [3:0] decay;
+  reg [3:0] divider;
+  reg start;
+
+  wire tick = (in_frame_cnt == 0) && (in_frame_step != 4);
+
+  always @(posedge in_clk, posedge in_start) begin
+    if (in_rst) begin
+      decay <= 4'h0;
+      divider <= 4'd0;
+    end else begin
+      if (in_start) begin
+        start <= 1;
+      end else begin
+        if (tick) begin
+          if (start) begin
+            start <= 0;
+            decay <= 4'hf;
+            divider <= in_vol;
+          end else begin
+            if (divider == 0) begin
+              if (decay == 0) begin
+                if (in_loop) begin
+                  decay <= 4'hf;
+                  divider <= in_vol;
+                end
+              end else begin
+                divider <= in_vol;
+                decay <= decay - 4'd1;
+              end
+            end else begin
+              divider <= divider - 4'd1;
+            end
+          end
+        end
+      end
+    end
+  end
+endmodule
+
 module nesapu(
   input in_clk,
   input in_rst,
@@ -71,14 +125,14 @@ module nesapu(
   reg [7:0] clk_div;
 
   // frame counter internals
-  reg [11:0] frame_clk;
+  reg [11:0] frame_cnt;
   reg [4:0] frame_step;
   wire frame_mode = apu_reg['h17][7];
 
-  wire [15:0] pulse0_out = AMP_TABLE[ { pulse0_seq[0], pulse0_vol } ];
-  wire [15:0] pulse1_out = AMP_TABLE[ { pulse1_seq[0], pulse1_vol } ];
+  wire [15:0] pulse0_out = AMP_TABLE[ { pulse0_seq[0], pulse0_env_out } ];
+  wire [15:0] pulse1_out = AMP_TABLE[ { pulse1_seq[0], pulse1_env_out } ];
   wire [7:0] tri_out = TRI_TABLE[ tri_step ];
-  wire [15:0] lfsr_out = AMP_TABLE[ { lfsr[0], lfsr_vol } ];
+  wire [15:0] lfsr_out = AMP_TABLE[ { lfsr[0], lfsr_env_out } ];
 
   wire pulse0_mute = (pulse0_enable == 0) || (pulse0_length == 0);
   wire pulse1_mute = (pulse1_enable == 0) || (pulse1_length == 0);
@@ -92,6 +146,48 @@ module nesapu(
       (lfsr_mute ? 16'h0 : lfsr_out) +
     16'h0;
   assign out_lr = mixer;
+
+  wire [3:0] pulse0_env_out;
+  wire pulse0_env_start = posedge_wr && (in_reg == 'h3);
+  nesapu_env pulse0_env(
+    in_clk,
+    in_rst,
+    apu_reg['h0][3:0],  // vol
+    apu_reg['h0][5],    // loop
+    apu_reg['h0][4],    // const
+    pulse0_env_start,
+    frame_cnt,
+    frame_step,
+    pulse0_env_out
+  );
+
+  wire [3:0] pulse1_env_out;
+  reg pulse1_env_start = posedge_wr && (in_reg == 'h7);
+  nesapu_env pulse1_env(
+    in_clk,
+    in_rst,
+    apu_reg['h4][3:0],  // vol
+    apu_reg['h4][5],    // loop
+    apu_reg['h4][4],    // const
+    pulse1_env_start,
+    frame_cnt,
+    frame_step,
+    pulse1_env_out
+  );
+
+  wire [3:0] lfsr_env_out;
+  reg lfsr_env_start = posedge_wr && (in_reg == 'h3);
+  nesapu_env lfsr_env(
+    in_clk,
+    in_rst,
+    apu_reg['hc][3:0],  // vol
+    apu_reg['hc][5],    // loop
+    apu_reg['hc][4],    // const
+    lfsr_env_start,
+    frame_cnt,
+    frame_step,
+    lfsr_env_out
+  );
 
   wire posedge_wr = (in_wr == 1'b1) && (old_wr == 1'b0);
 
@@ -110,7 +206,7 @@ module nesapu(
       lfsr <= 15'b1;
 
       frame_step <= 5'b00001;
-      frame_clk <= 0;
+      frame_cnt <= 0;
 
     end else begin
 
@@ -124,25 +220,22 @@ module nesapu(
         case (in_reg)
         'h3: pulse0_length <= in_timer;
         'h7: pulse1_length <= in_timer;
-        'hb: tri_length    <= in_timer;
-        'hf: lfsr_length   <= in_timer;
+        'hb: tri_length <= in_timer;
+        'hf: lfsr_length <= in_timer;
         endcase
 
       end else begin
 
-        if (frame_clk == 0) begin
-          frame_clk <= 12'd3728;
+        if (frame_cnt == 0) begin
+
+          // update at 240hz
+          frame_cnt <= 12'd7457;
 
           if (frame_step == 1 || frame_step == 4) begin
             pulse0_length <= pulse0_length_next;
             pulse1_length <= pulse1_length_next;
             tri_length    <= tri_length_next;
             lfsr_length   <= lfsr_length_next;
-          end
-
-          if (frame_step == 0 || frame_step == 1 || frame_step == 2 || frame_step == 4) begin
-            // tick envelopes
-            // triangle linear counter
           end
 
           // tick the frame counter
@@ -153,7 +246,7 @@ module nesapu(
             { frame_step[3:0], frame_mode ? frame_step[3] : frame_step[4] };
         end
       else
-        frame_clk <= frame_clk - 12'd1;
+        frame_cnt <= frame_cnt - 12'd1;
       end
 
       if (clk_div[0] == 0) begin

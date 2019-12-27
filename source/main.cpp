@@ -48,6 +48,7 @@ struct vgm_stream_ext_t: public vgm_stream_t {
     ym2149.in_val = value;
     for (int i = 0; i < 8; ++i) {
       ym2149.in_wr = (i < 4);
+      nesapu.eval();
       ym2149.in_clk ^= 1;
       ym2149.eval();
     }
@@ -61,6 +62,7 @@ struct vgm_stream_ext_t: public vgm_stream_t {
     nesapu.in_val = value;
     for (int i = 0; i < 8; ++i) {
       nesapu.in_wr = (i < 4);
+      nesapu.eval();
       nesapu.in_clk ^= 1;
       nesapu.eval();
     }
@@ -70,6 +72,7 @@ struct vgm_stream_ext_t: public vgm_stream_t {
     sn76489.in_val = value;
     for (int i = 0; i < 8; ++i) {
       sn76489.in_wr = (i < 4);
+      nesapu.eval();
       sn76489.in_clk ^= 1;
       sn76489.eval();
     }
@@ -86,16 +89,23 @@ int main(int argc, char **args) {
   // create vgm stream
   vgm_t vgm;
   if (!vgm.load(
+    // YM2149
 //    "C:/repos/vgmplayer/music/Metal_Gear_(MSX2)/05 Mercenary"
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/04 Wicked Child"
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/12 Nothing to Lose"
 //    "C:/repos/vgmplayer/music/Herzog_(Sharp_X1_Turbo,_PSG)/05 Back to Square One (Stage 1 Mercie)"
 
+    // SN76489
 //    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
 
+    // NESAPU
+    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"
 //    "C:/repos/vgmverilator/music/nesapu/Castlevania_(NES)/06 Heart of Fire"
-    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/01 Running About"
+//    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/01 Running About"
 //    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/03 Swimming Around"
+
+    // GBDMG
+    "C:/repos/vgmverilator/music/gbdmg/Pokemon_Card_GB2_-_GR-dan_Sanjou!_(Nintendo_Game_Boy_Color)/05 GR Island"
   )) {
     return 1;
   }
