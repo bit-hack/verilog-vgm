@@ -24,3 +24,13 @@ add_custom_command(TARGET vgmverilator PRE_BUILD COMMAND
 add_custom_command(TARGET vgmverilator PRE_BUILD COMMAND
     "verilator-3.841/verilator.exe" "--compiler" "msvc" "--cc" "source/nesapu.v" "--top-module" "nesapu"
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_custom_command(TARGET vgmverilator PRE_BUILD COMMAND
+    "verilator-3.841/verilator.exe" "--compiler" "msvc" "--cc" "source/ym3812.v" "--top-module" "ym3812"
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+configure_file(source/nesapu_dac.txt  nesapu_dac.txt  COPYONLY)
+configure_file(source/nesapu_len.txt  nesapu_len.txt  COPYONLY)
+configure_file(source/nesapu_tri.txt  nesapu_tri.txt  COPYONLY)
+configure_file(source/sn76489_dac.txt sn76489_dac.txt COPYONLY)
+configure_file(source/ym2149_dac.txt  ym2149_dac.txt  COPYONLY)

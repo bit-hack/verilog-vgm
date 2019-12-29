@@ -1,0 +1,12 @@
+# DESCRIPTION: Verilator output: Timestamp data for --skip-identical.  Delete at will.
+C "--compiler msvc --cc source/ym3812.v --top-module ym3812"
+T      3346  1577571518 "obj_dir/Vym3812.cpp"
+T      2630  1577571518 "obj_dir/Vym3812.h"
+T      1720  1577571518 "obj_dir/Vym3812.mk"
+T       600  1577571518 "obj_dir/Vym3812__Syms.cpp"
+T      1004  1577571518 "obj_dir/Vym3812__Syms.h"
+T       240  1577571518 "obj_dir/Vym3812__ver.d"
+T         0  1577571518 "obj_dir/Vym3812__verFiles.dat"
+T      1124  1577571518 "obj_dir/Vym3812_classes.mk"
+S       619  1577571455 "source/ym3812.v"
+S   5939892  1350972859 "verilator-3.841\verilator.exe"

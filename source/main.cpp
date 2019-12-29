@@ -9,7 +9,7 @@
 #include "Vsn76489.h"
 #include "Vnesapu.h"
 
-#if 0
+#if 1
 #define MCLK  clk_ay8910
 #define CHIP  ym2149
 #endif
@@ -17,7 +17,7 @@
 #define MCLK  clk_sn76489
 #define CHIP  sn76489
 #endif
-#if 1
+#if 0
 #define MCLK  clk_nesapu
 #define CHIP  nesapu
 #endif
@@ -90,22 +90,23 @@ int main(int argc, char **args) {
   vgm_t vgm;
   if (!vgm.load(
     // YM2149
-//    "C:/repos/vgmplayer/music/Metal_Gear_(MSX2)/05 Mercenary"
+    "C:/repos/vgmplayer/music/Metal_Gear_(MSX2)/08 Return of Fox Hounder"
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/04 Wicked Child"
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/12 Nothing to Lose"
 //    "C:/repos/vgmplayer/music/Herzog_(Sharp_X1_Turbo,_PSG)/05 Back to Square One (Stage 1 Mercie)"
+//    "C:/repos/vgmverilator/music/ym2149/Penguin_Adventure_(MSX)/03 Forest Path"
 
     // SN76489
 //    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
 
     // NESAPU
-    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"
+//    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"
 //    "C:/repos/vgmverilator/music/nesapu/Castlevania_(NES)/06 Heart of Fire"
 //    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/01 Running About"
 //    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/03 Swimming Around"
 
     // GBDMG
-    "C:/repos/vgmverilator/music/gbdmg/Pokemon_Card_GB2_-_GR-dan_Sanjou!_(Nintendo_Game_Boy_Color)/05 GR Island"
+//    "C:/repos/vgmverilator/music/gbdmg/Pokemon_Card_GB2_-_GR-dan_Sanjou!_(Nintendo_Game_Boy_Color)/05 GR Island"
   )) {
     return 1;
   }

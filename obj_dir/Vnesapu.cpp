@@ -153,31 +153,31 @@ void Vnesapu::_initial__TOP(Vnesapu__Syms* __restrict vlSymsp) {
     VL_SIGW(__Vtemp2,111,0,4);
     VL_SIGW(__Vtemp3,111,0,4);
     // Body
-    // INITIAL at source/nesapu.v:71
+    // INITIAL at source/nesapu.v:77
     __Vtemp1[0] = 0x2e747874;
     __Vtemp1[1] = 0x5f646163;
     __Vtemp1[2] = 0x73617075;
     __Vtemp1[3] = 0x6e65;
     VL_READMEM_W (true,16,32, 0,4, __Vtemp1, vlTOPp->v__DOT__AMP_TABLE
 		  ,0,~0);
-    // INITIAL at source/nesapu.v:75
+    // INITIAL at source/nesapu.v:81
     __Vtemp2[0] = 0x2e747874;
     __Vtemp2[1] = 0x5f747269;
     __Vtemp2[2] = 0x73617075;
     __Vtemp2[3] = 0x6e65;
     VL_READMEM_W (true,8,32, 0,4, __Vtemp2, vlTOPp->v__DOT__TRI_TABLE
 		  ,0,~0);
-    // INITIAL at source/nesapu.v:79
+    // INITIAL at source/nesapu.v:85
     __Vtemp3[0] = 0x2e747874;
     __Vtemp3[1] = 0x5f6c656e;
     __Vtemp3[2] = 0x73617075;
     __Vtemp3[3] = 0x6e65;
     VL_READMEM_W (true,8,32, 0,4, __Vtemp3, vlTOPp->v__DOT__LEN_TABLE
 		  ,0,~0);
-    // INITIAL at source/nesapu.v:165
+    // INITIAL at source/nesapu.v:171
     vlTOPp->v__DOT__pulse1_env_start = ((IData)(vlTOPp->v__DOT__posedge_wr) 
 					& (7 == (IData)(vlTOPp->in_reg)));
-    // INITIAL at source/nesapu.v:179
+    // INITIAL at source/nesapu.v:185
     vlTOPp->v__DOT__lfsr_env_start = ((IData)(vlTOPp->v__DOT__posedge_wr) 
 				      & (3 == (IData)(vlTOPp->in_reg)));
 }
@@ -194,7 +194,7 @@ void Vnesapu::_sequent__TOP__1(Vnesapu__Syms* __restrict vlSymsp) {
     __Vdly__v__DOT__pulse1_env__DOT__divider = vlTOPp->v__DOT__pulse1_env__DOT__divider;
     __Vdly__v__DOT__pulse1_env__DOT__start = vlTOPp->v__DOT__pulse1_env__DOT__start;
     __Vdly__v__DOT__pulse1_env__DOT__decay = vlTOPp->v__DOT__pulse1_env__DOT__decay;
-    // ALWAYS at source/nesapu.v:27
+    // ALWAYS at source/nesapu.v:33
     if (vlTOPp->in_rst) {
 	__Vdly__v__DOT__pulse1_env__DOT__decay = 0;
 	__Vdly__v__DOT__pulse1_env__DOT__divider = 0;
@@ -250,7 +250,7 @@ void Vnesapu::_sequent__TOP__2(Vnesapu__Syms* __restrict vlSymsp) {
     __Vdly__v__DOT__lfsr_env__DOT__start = vlTOPp->v__DOT__lfsr_env__DOT__start;
     __Vdly__v__DOT__lfsr_env__DOT__divider = vlTOPp->v__DOT__lfsr_env__DOT__divider;
     __Vdly__v__DOT__lfsr_env__DOT__decay = vlTOPp->v__DOT__lfsr_env__DOT__decay;
-    // ALWAYS at source/nesapu.v:27
+    // ALWAYS at source/nesapu.v:33
     if (vlTOPp->in_rst) {
 	__Vdly__v__DOT__lfsr_env__DOT__decay = 0;
 	__Vdly__v__DOT__lfsr_env__DOT__divider = 0;
@@ -306,7 +306,7 @@ void Vnesapu::_sequent__TOP__3(Vnesapu__Syms* __restrict vlSymsp) {
     __Vdly__v__DOT__pulse0_env__DOT__start = vlTOPp->v__DOT__pulse0_env__DOT__start;
     __Vdly__v__DOT__pulse0_env__DOT__divider = vlTOPp->v__DOT__pulse0_env__DOT__divider;
     __Vdly__v__DOT__pulse0_env__DOT__decay = vlTOPp->v__DOT__pulse0_env__DOT__decay;
-    // ALWAYS at source/nesapu.v:27
+    // ALWAYS at source/nesapu.v:33
     if (vlTOPp->in_rst) {
 	__Vdly__v__DOT__pulse0_env__DOT__decay = 0;
 	__Vdly__v__DOT__pulse0_env__DOT__divider = 0;
@@ -391,7 +391,7 @@ void Vnesapu::_sequent__TOP__4(Vnesapu__Syms* __restrict vlSymsp) {
     __Vdlyvset__v__DOT__apu_reg__v0 = 0;
     __Vdlyvset__v__DOT__apu_reg__v1 = 0;
     __Vdlyvset__v__DOT__apu_reg__v2 = 0;
-    // ALWAYS at source/nesapu.v:196
+    // ALWAYS at source/nesapu.v:202
     if (vlTOPp->in_rst) {
 	__Vdly__v__DOT__pulse0_seq = 0x78;
 	__Vdly__v__DOT__pulse1_seq = 0x78;
@@ -534,7 +534,7 @@ void Vnesapu::_sequent__TOP__4(Vnesapu__Syms* __restrict vlSymsp) {
     vlTOPp->v__DOT__lfsr = __Vdly__v__DOT__lfsr;
     vlTOPp->v__DOT__pulse1_seq = __Vdly__v__DOT__pulse1_seq;
     vlTOPp->v__DOT__pulse0_seq = __Vdly__v__DOT__pulse0_seq;
-    // ALWAYSPOST at source/nesapu.v:203
+    // ALWAYSPOST at source/nesapu.v:209
     if (__Vdlyvset__v__DOT__apu_reg__v0) {
 	vlTOPp->v__DOT__apu_reg[0x15] = 0xff;
     }
@@ -831,9 +831,9 @@ IData Vnesapu::_change_request(Vnesapu__Syms* __restrict vlSymsp) {
     __req |= ((vlTOPp->v__DOT__pulse0_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__pulse0_env_start)
 	 | (vlTOPp->v__DOT__pulse1_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__pulse1_env_start)
 	 | (vlTOPp->v__DOT__lfsr_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__lfsr_env_start));
-    VL_DEBUG_IF( if(__req && ((vlTOPp->v__DOT__pulse0_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__pulse0_env_start))) VL_PRINTF("	CHANGE: source/nesapu.v:151: v.pulse0_env_start\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->v__DOT__pulse1_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__pulse1_env_start))) VL_PRINTF("	CHANGE: source/nesapu.v:165: v.pulse1_env_start\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->v__DOT__lfsr_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__lfsr_env_start))) VL_PRINTF("	CHANGE: source/nesapu.v:179: v.lfsr_env_start\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->v__DOT__pulse0_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__pulse0_env_start))) VL_PRINTF("	CHANGE: source/nesapu.v:157: v.pulse0_env_start\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->v__DOT__pulse1_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__pulse1_env_start))) VL_PRINTF("	CHANGE: source/nesapu.v:171: v.pulse1_env_start\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->v__DOT__lfsr_env_start ^ vlTOPp->__Vchglast__TOP__v__DOT__lfsr_env_start))) VL_PRINTF("	CHANGE: source/nesapu.v:185: v.lfsr_env_start\n"); );
     // Final
     vlTOPp->__Vchglast__TOP__v__DOT__pulse0_env_start 
 	= vlTOPp->v__DOT__pulse0_env_start;

@@ -4,6 +4,12 @@
 // in NES runs from ~1.79 MHz clock
 // frame clock is ~240Hz
 
+// TODO:
+// - Noise Period
+// - Sweep
+// - Linear Counter
+// - Pulse Duty
+
 module nesapu_env(
   input in_clk,
   input in_rst,
