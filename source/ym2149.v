@@ -9,7 +9,7 @@ module ym2149_env(
   input in_rst,
   input [15:0] in_period,
   input [3:0] in_mode,
-  input reload,
+  input in_reload,
   output [3:0] out_env);
 
   // Fe = fMaster / (256 * in_period)
@@ -27,13 +27,13 @@ module ym2149_env(
   // take into account attack mode and toggle
   assign out_env = (mode_attack ^ toggle) ? (4'd15 - value[7:4]) : value[7:4];
 
-  always @(posedge in_clk) begin
+  always @(posedge in_clk, posedge in_reload) begin
     if (in_rst) begin
       counter <= 16'hffff;
       value <= 8'hff;
       toggle <= 0;
     end else begin
-      if (reload) begin
+      if (in_reload) begin
         value <= 8'hff;
         counter <= 16'hffff;
         toggle <= 0;
@@ -207,6 +207,8 @@ module ym2149(
 
   reg reload_env;
 
+  wire posedge_wr = (in_wr == 1'b1) && (old_wr == 1'b0);
+
   always @(posedge in_clk) begin
 
     if (in_rst) begin
@@ -218,7 +220,7 @@ module ym2149(
 
     end else begin
       // register write
-      if ((in_wr == 1'b1) && (old_wr == 1'b0)) begin
+      if (posedge_wr) begin
         r[ in_reg ] <= in_val;
         reload_env <= (in_reg == 4'd15);
       end else begin

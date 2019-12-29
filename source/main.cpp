@@ -96,7 +96,9 @@ int main(int argc, char **args) {
 
     // SN76489
 //    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
-    "C:/repos/vgmverilator/music/sn76489/Sonic_the_Hedgehog's_GameWorld_(Sega_Pico)/14 Floor 4"
+//    "C:/repos/vgmverilator/music/sn76489/Sonic_the_Hedgehog's_GameWorld_(Sega_Pico)/14 Floor 4"
+//    "C:/repos/vgmverilator/music/sn76489/Budokan_-_The_Martial_Spirit_(Tandy_1000)/04 Interlude"
+    "C:/repos/vgmverilator/music/sn76489/Maniac_Mansion_(Tandy_1000)/04 Main Theme (Enhanced Version)"
 
     // NESAPU
 //    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"
