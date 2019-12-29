@@ -9,11 +9,11 @@
 #include "Vsn76489.h"
 #include "Vnesapu.h"
 
-#if 1
+#if 0
 #define MCLK  clk_ay8910
 #define CHIP  ym2149
 #endif
-#if 0
+#if 1
 #define MCLK  clk_sn76489
 #define CHIP  sn76489
 #endif
@@ -32,8 +32,6 @@ Vsn76489 sn76489;
 // output samples
 std::vector<uint16_t> samples;
 
-uint32_t hit_count;
-
 struct vgm_stream_ext_t: public vgm_stream_t {
 
   vgm_stream_ext_t(vgm_t &vgm)
@@ -48,7 +46,7 @@ struct vgm_stream_ext_t: public vgm_stream_t {
     ym2149.in_val = value;
     for (int i = 0; i < 8; ++i) {
       ym2149.in_wr = (i < 4);
-      nesapu.eval();
+      ym2149.eval();
       ym2149.in_clk ^= 1;
       ym2149.eval();
     }
@@ -72,7 +70,7 @@ struct vgm_stream_ext_t: public vgm_stream_t {
     sn76489.in_val = value;
     for (int i = 0; i < 8; ++i) {
       sn76489.in_wr = (i < 4);
-      nesapu.eval();
+      sn76489.eval();
       sn76489.in_clk ^= 1;
       sn76489.eval();
     }
@@ -90,7 +88,7 @@ int main(int argc, char **args) {
   vgm_t vgm;
   if (!vgm.load(
     // YM2149
-    "C:/repos/vgmplayer/music/Metal_Gear_(MSX2)/08 Return of Fox Hounder"
+//    "C:/repos/vgmplayer/music/Metal_Gear_(MSX2)/08 Return of Fox Hounder"
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/04 Wicked Child"
 //    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/12 Nothing to Lose"
 //    "C:/repos/vgmplayer/music/Herzog_(Sharp_X1_Turbo,_PSG)/05 Back to Square One (Stage 1 Mercie)"
@@ -98,6 +96,7 @@ int main(int argc, char **args) {
 
     // SN76489
 //    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
+    "C:/repos/vgmverilator/music/sn76489/Sonic_the_Hedgehog's_GameWorld_(Sega_Pico)/14 Floor 4"
 
     // NESAPU
 //    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"

@@ -31,31 +31,51 @@ VL_MODULE(Vsn76489) {
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
+    VL_SIG8(v__DOT__noise_clear,0,0);
     VL_SIG8(v__DOT__old_wr,0,0);
-    VL_SIG8(v__DOT__clk_div,7,0);
+    VL_SIG8(v__DOT__noise_shift,1,0);
+    VL_SIG8(v__DOT__noise_fb,0,0);
+    VL_SIG8(v__DOT__clk_div,3,0);
     VL_SIG8(v__DOT__latch_chan,1,0);
-    //char	__VpadToAlign15[1];
-    VL_SIG16(v__DOT__lfsr,15,0);
+    VL_SIG8(v__DOT__posedge_wr,0,0);
+    VL_SIG8(v__DOT__tone0__DOT__phase,0,0);
+    VL_SIG8(v__DOT__tone1__DOT__phase,0,0);
+    VL_SIG8(v__DOT__tone2__DOT__phase,0,0);
+    VL_SIG8(v__DOT__noise__DOT__old_tone2,0,0);
+    //char	__VpadToAlign23[1];
     VL_SIG16(v__DOT__c0_mix,15,0);
     VL_SIG16(v__DOT__c1_mix,15,0);
     VL_SIG16(v__DOT__c2_mix,15,0);
     VL_SIG16(v__DOT__nz_mix,15,0);
-    //char	__VpadToAlign26[6];
+    VL_SIG16(v__DOT__tone0__DOT__counter,9,0);
+    VL_SIG16(v__DOT__tone1__DOT__counter,9,0);
+    VL_SIG16(v__DOT__tone2__DOT__counter,9,0);
+    VL_SIG16(v__DOT__noise__DOT__lfsr,15,0);
+    VL_SIG16(v__DOT__noise__DOT__lfsr_next,15,0);
+    VL_SIG16(v__DOT__noise__DOT__counter,11,0);
+    //char	__VpadToAlign44[4];
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
-    VL_SIG16(v__DOT__c_freq[3],9,0);
-    VL_SIG16(v__DOT__c_tone[3],9,0);
-    VL_SIG8(v__DOT__c_amp[4],3,0);
     //char	__VpadToAlign112[2];
-    VL_SIG8(v__DOT__c_bit[3],0,0);
-    //char	__VpadToAlign117[3];
+    VL_SIG16(v__DOT__c_freq[3],9,0);
+    VL_SIG8(v__DOT__c_amp[4],3,0);
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
+    VL_SIG8(__Vdlyvset__v__DOT__c_amp__v0,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_freq__v0,0,0);
+    VL_SIG8(__Vdly__v__DOT__latch_chan,1,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_freq__v1,0,0);
+    VL_SIG8(__Vdlyvset__v__DOT__c_amp__v4,0,0);
+    VL_SIG8(__Vdly__v__DOT__tone2__DOT__phase,0,0);
+    VL_SIG8(__VinpClk__TOP__v__DOT__noise_clear,0,0);
     VL_SIG8(__Vclklast__TOP__in_clk,0,0);
-    //char	__VpadToAlign125[1];
+    VL_SIG8(__Vclklast__TOP____VinpClk__TOP__v__DOT__noise_clear,0,0);
+    VL_SIG8(__Vchglast__TOP__v__DOT__noise_clear,0,0);
+    VL_SIG16(v__DOT____Vcellinp__tone0____pinNumber3,9,0);
+    VL_SIG16(v__DOT____Vcellinp__tone1____pinNumber3,9,0);
+    VL_SIG16(v__DOT____Vcellinp__tone2____pinNumber3,9,0);
     VL_SIG16(v__DOT____Vlvbound1,9,0);
     VL_SIG16(v__DOT____Vlvbound2,9,0);
-    //char	__VpadToAlign130[2];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
@@ -92,13 +112,18 @@ VL_MODULE(Vsn76489) {
   private:
     static IData	_change_request(Vsn76489__Syms* __restrict vlSymsp);
   public:
+    static void	_combo__TOP__6(Vsn76489__Syms* __restrict vlSymsp);
     static void	_eval(Vsn76489__Syms* __restrict vlSymsp);
     static void	_eval_initial(Vsn76489__Syms* __restrict vlSymsp);
     static void	_eval_settle(Vsn76489__Syms* __restrict vlSymsp);
     static void	_initial__TOP(Vsn76489__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__1(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__2(Vsn76489__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__3(Vsn76489__Syms* __restrict vlSymsp);
-    static void	_settle__TOP__2(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__4(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__7(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__5(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__8(Vsn76489__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/
