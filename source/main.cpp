@@ -8,18 +8,23 @@
 #include "Vym2149.h"
 #include "Vsn76489.h"
 #include "Vnesapu.h"
+#include "Vgbdmg.h"
 
 #if 0
 #define MCLK  clk_ay8910
 #define CHIP  ym2149
 #endif
-#if 1
+#if 0
 #define MCLK  clk_sn76489
 #define CHIP  sn76489
 #endif
 #if 0
 #define MCLK  clk_nesapu
 #define CHIP  nesapu
+#endif
+#if 1
+#define MCLK  clk_gbdmg
+#define CHIP  gbdmg
 #endif
 
 static const uint64_t SAMPLE_RATE = 44100;
@@ -28,6 +33,7 @@ static const uint64_t MAX_SAMPLES = ~0ull;
 Vnesapu nesapu;
 Vym2149 ym2149;
 Vsn76489 sn76489;
+Vgbdmg gbdmg;
 
 // output samples
 std::vector<uint16_t> samples;
@@ -53,7 +59,7 @@ struct vgm_stream_ext_t: public vgm_stream_t {
   }
 
   void write_nesapu(uint8_t reg, uint8_t value) override {
-    if (reg >= 23) {
+    if (reg > 23) {
       return;
     }
     nesapu.in_reg = reg;
@@ -63,6 +69,20 @@ struct vgm_stream_ext_t: public vgm_stream_t {
       nesapu.eval();
       nesapu.in_clk ^= 1;
       nesapu.eval();
+    }
+  }
+
+  void write_gbdmg(uint8_t reg, uint8_t value) override {
+    if (reg >= 0x30) {
+      return;
+    }
+    gbdmg.in_reg = reg;
+    gbdmg.in_val = value;
+    for (int i = 0; i < 8; ++i) {
+      gbdmg.in_wr = (i < 4);
+      gbdmg.eval();
+      gbdmg.in_clk ^= 1;
+      gbdmg.eval();
     }
   }
 
@@ -98,7 +118,7 @@ int main(int argc, char **args) {
 //    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
 //    "C:/repos/vgmverilator/music/sn76489/Sonic_the_Hedgehog's_GameWorld_(Sega_Pico)/14 Floor 4"
 //    "C:/repos/vgmverilator/music/sn76489/Budokan_-_The_Martial_Spirit_(Tandy_1000)/04 Interlude"
-    "C:/repos/vgmverilator/music/sn76489/Maniac_Mansion_(Tandy_1000)/04 Main Theme (Enhanced Version)"
+//    "C:/repos/vgmverilator/music/sn76489/Maniac_Mansion_(Tandy_1000)/04 Main Theme (Enhanced Version)"
 
     // NESAPU
 //    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"
@@ -107,7 +127,7 @@ int main(int argc, char **args) {
 //    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/03 Swimming Around"
 
     // GBDMG
-//    "C:/repos/vgmverilator/music/gbdmg/Pokemon_Card_GB2_-_GR-dan_Sanjou!_(Nintendo_Game_Boy_Color)/05 GR Island"
+    "C:/repos/vgmverilator/music/gbdmg/Pokemon_Card_GB2_-_GR-dan_Sanjou!_(Nintendo_Game_Boy_Color)/05 GR Island"
   )) {
     return 1;
   }
@@ -117,6 +137,7 @@ int main(int argc, char **args) {
   const uint64_t clk_ay8910  = vgm_hdr.clock_AY8910();
   const uint64_t clk_sn76489 = vgm_hdr.clock_SN76489();
   const uint64_t clk_nesapu  = vgm_hdr.clock_NESAPU();
+  const uint64_t clk_gbdmg   = vgm_hdr.clock_GBDMG();
 
   // counter for output samples
   uint64_t counter_smp = 0;

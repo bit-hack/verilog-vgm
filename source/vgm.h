@@ -63,6 +63,15 @@ struct vgm_hdr_t {
     return 0;
   }
 
+  uint32_t clock_GBDMG() const {
+    if (version() >= 0x151) {
+      // typical 
+      const uint8_t *src = _vgm.data() + 0x80;
+      return *(uint32_t*)src;
+    }
+    return 0;
+  }
+
   uint32_t data_offset() const {
     if (version() >= 0x150) {
       const uint8_t *src = _vgm.data() + 0x34;
@@ -105,6 +114,11 @@ struct vgm_stream_t {
   }
 
   virtual void write_nesapu(uint8_t reg, uint8_t value) {
+    // empty
+  }
+
+  virtual void write_gbdmg(uint8_t reg, uint8_t value) {
+    // reg $00 == $FF10
     // empty
   }
 

@@ -75,6 +75,13 @@ bool vgm_stream_t::advance() {
     write_ay8910(reg, val);
     break;
   }
+  case 0xb3:
+  {
+    const uint8_t reg = read<uint8_t>();
+    const uint8_t val = read<uint8_t>();
+    write_gbdmg(reg, val);
+    break;
+  }
   case 0xb4:
   {
     const uint8_t reg = read<uint8_t>();
