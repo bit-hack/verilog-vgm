@@ -148,6 +148,7 @@ int main(int argc, char **args) {
   // reset the chip
   for (int i = 0; i < 16; ++i) {
     CHIP.in_rst = (i < 8) ? 1 : 0;
+    CHIP.eval();
     CHIP.in_clk ^= 1;
     CHIP.eval();
   }
