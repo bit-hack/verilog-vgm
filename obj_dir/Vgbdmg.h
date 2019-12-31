@@ -35,45 +35,45 @@ VL_MODULE(Vgbdmg) {
     VL_SIG8(v__DOT__trigger_env0,0,0);
     VL_SIG8(v__DOT__trigger_env1,0,0);
     VL_SIG8(v__DOT__trigger_env2,0,0);
-    VL_SIG8(v__DOT__pulse0_duty,1,0);
     VL_SIG8(v__DOT__wr_old,0,0);
     VL_SIG8(v__DOT__wr_posedge,0,0);
     VL_SIG8(v__DOT__frame_seq,2,0);
     VL_SIG8(v__DOT__tick_env,0,0);
-    VL_SIG8(v__DOT__pulse0__DOT__clk_div,1,0);
-    VL_SIG8(v__DOT__pulse0__DOT__duty,7,0);
-    VL_SIG8(v__DOT__pulse0__DOT__old_duty,1,0);
-    VL_SIG8(v__DOT__pulse0__DOT__reload_duty,0,0);
-    VL_SIG8(v__DOT__env0__DOT__value,3,0);
-    VL_SIG8(v__DOT__env0__DOT__clk_div,2,0);
-    VL_SIG16(v__DOT__pulse0_freq,10,0);
-    VL_SIG16(v__DOT__pulse0_mix,15,0);
+    VL_SIG8(v__DOT__noise__DOT__xor_bit,0,0);
+    VL_SIG8(v__DOT__env2__DOT__value,3,0);
+    VL_SIG8(v__DOT__env2__DOT__clk_div,2,0);
+    VL_SIG16(v__DOT__noise_mix,15,0);
     VL_SIG16(v__DOT__frame_clk_div,9,0);
-    VL_SIG16(v__DOT__pulse0__DOT__counter,10,0);
-    //char	__VpadToAlign34[6];
+    VL_SIG16(v__DOT__noise__DOT__period_dec,10,0);
+    VL_SIG16(v__DOT__noise__DOT__counter,10,0);
+    VL_SIG16(v__DOT__noise__DOT__lfsr,14,0);
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
     VL_SIG8(v__DOT__r[64],7,0);
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
-    VL_SIG8(v__DOT____Vcellinp__env0____pinNumber5,0,0);
-    VL_SIG8(v__DOT____Vcellinp__env0____pinNumber4,2,0);
-    VL_SIG8(v__DOT____Vcellinp__env0____pinNumber3,3,0);
+    VL_SIG8(v__DOT____Vcellinp__noise____pinNumber5,0,0);
+    VL_SIG8(v__DOT____Vcellinp__noise____pinNumber4,2,0);
+    VL_SIG8(v__DOT____Vcellinp__noise____pinNumber3,3,0);
+    VL_SIG8(v__DOT____Vcellinp__env2____pinNumber5,0,0);
+    VL_SIG8(v__DOT____Vcellinp__env2____pinNumber4,2,0);
+    VL_SIG8(v__DOT____Vcellinp__env2____pinNumber3,3,0);
     VL_SIG8(__Vdlyvset__v__DOT__r__v0,0,0);
-    VL_SIG8(__VinpClk__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__VinpClk__TOP__v__DOT__trigger_env2,0,0);
+    VL_SIG8(__VinpClk__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__VinpClk__TOP__v__DOT__trigger_env1,0,0);
     VL_SIG8(__Vclklast__TOP__in_clk,0,0);
-    VL_SIG8(__Vclklast__TOP____VinpClk__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__Vclklast__TOP____VinpClk__TOP__v__DOT__trigger_env2,0,0);
+    VL_SIG8(__Vclklast__TOP____VinpClk__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__Vclklast__TOP____VinpClk__TOP__v__DOT__trigger_env1,0,0);
     VL_SIG8(__Vchglast__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__Vchglast__TOP__v__DOT__trigger_env1,0,0);
     VL_SIG8(__Vchglast__TOP__v__DOT__trigger_env2,0,0);
-    //char	__VpadToAlign186[2];
+    //char	__VpadToAlign181[3];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
+    //char	__VpadToAlign188[4];
     Vgbdmg__Syms*	__VlSymsp;		// Symbol table
     
     // PARAMETERS
@@ -107,17 +107,17 @@ VL_MODULE(Vgbdmg) {
   private:
     static IData	_change_request(Vgbdmg__Syms* __restrict vlSymsp);
   public:
-    static void	_combo__TOP__7(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_combo__TOP__8(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_eval(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_eval_initial(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_eval_settle(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_initial__TOP(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__1(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__2(Vgbdmg__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__3(Vgbdmg__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__8(Vgbdmg__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__9(Vgbdmg__Syms* __restrict vlSymsp);
-    static void	_settle__TOP__4(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__4(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__5(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__3(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__9(Vgbdmg__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/

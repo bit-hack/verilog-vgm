@@ -132,8 +132,58 @@ module gbdm_envelope(
       end
     end
   end
+endmodule
+
+
+module gbdmg_noise(
+  input in_clk,
+  input in_rst,
+  input [3:0] in_shift,
+  input [2:0] in_divisor,
+  input in_mode,
+  output out_bit);
+
+  reg [10:0] period_dec;
+  reg [10:0] counter;
+
+  reg [14:0] lfsr;
+  wire xor_bit = lfsr[1] ^ lfsr[0];
+
+  wire [14:0] lfsr_next = in_mode ?
+    ({ 8'd0, xor_bit, lfsr[5:0] }) :
+    ({ xor_bit, lfsr[14:1] });
+
+  assign out_bit = lfsr[0];
+
+  always @(posedge in_clk) begin
+
+    if (in_rst) begin
+      lfsr <= 15'd1;
+    end else begin
+      // decode the noise period
+      case (in_divisor)
+     'd0: period_dec <= 11'd8;
+     'd1: period_dec <= 11'd16;
+     'd2: period_dec <= 11'd32;
+     'd3: period_dec <= 11'd48;
+     'd4: period_dec <= 11'd64;
+     'd5: period_dec <= 11'd80;
+     'd6: period_dec <= 11'd96;
+     'd7: period_dec <= 11'd112;
+      endcase
+
+      // update the counter
+      if (counter == 'd0) begin
+        counter <= period_dec << in_shift;
+        lfsr <= lfsr_next;
+      end else begin
+        counter <= counter - 10'd1;
+      end
+    end
+  end
 
 endmodule
+
 
 module gbdmg(
   input in_clk,
@@ -184,6 +234,11 @@ module gbdmg(
           { wave_mix_sign, wave_mix_sign, wave_mix_int[15:2] };
   wire [1:0] wave_vol = r['hc][6:5];
 
+  // noise channel
+  wire noise_bit;
+  gbdmg_noise noise(in_clk, in_rst, r['h12][7:4], r['h12][2:0], r['h12][3], noise_bit);
+  wire [15:0] noise_mix = AMP_TABLE[ { noise_bit, env2_value } ];
+
   reg wr_old;
   wire wr_posedge = ((in_wr == 1'b1) && (wr_old == 1'b0));
 
@@ -191,9 +246,10 @@ module gbdmg(
   reg [2:0] frame_seq;
 
   wire [15:0] mix_out =
-    pulse0_mix +
+//    pulse0_mix +
 //    pulse1_mix +
 //    wave_mix +
+    noise_mix +
     16'd0;
   assign out_lr = mix_out;
 
@@ -226,9 +282,9 @@ module gbdmg(
       // on reset
     end else begin
 
-      trigger_env0 <= wr_posedge && (in_reg == 'h02);
-      trigger_env1 <= wr_posedge && (in_reg == 'h07);
-      trigger_env2 <= wr_posedge && (in_reg == 'h11);
+      trigger_env0 <= wr_posedge && (in_reg == 'h04) && (in_val[7]);
+      trigger_env1 <= wr_posedge && (in_reg == 'h09) && (in_val[7]);
+      trigger_env2 <= wr_posedge && (in_reg == 'h13) && (in_val[7]);
 
       if (wr_posedge) begin
         r[ in_reg ] <= in_val;
