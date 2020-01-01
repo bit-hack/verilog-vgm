@@ -1,0 +1,54 @@
+***********************************************
+* VGM music package                           *
+* http://vgm.mdscene.net/                     *
+***********************************************
+Game name:           Sonic the Hedgehog's
+                     GameWorld
+System:              Sega Pico
+Music hardware:      SEGA VDP PSG (SN76489A)
+
+Music author:        Kojiro Mikusa
+Game developer:      Aspect
+Game publisher:      Sega
+Game release date:   1994-08 (J) / 1996-11 (U)
+
+Package created by:  Sonic of 8!
+Package version:     1.00
+
+Song list, in approximate game order:
+Song name                           Length:
+                                    Total  Loop
+01 Sega Logo                        0:01   -
+02 Title Screen                     0:18   -
+03 Options Screen                   0:33   0:33
+04 Floors 1 ~ 3                     0:22   0:21
+05 Tree Climb                       0:26   0:22
+06 Hoops                            0:31   0:28
+07 Sonic-Ball                       0:27   0:23
+08 Toy Drop                         0:31   0:31
+09 Flag                             0:38   0:36
+10 Robotnik Bop Good Ranking        0:04   -
+11 Egg Switch                       0:37   0:35
+12 You Win                          0:07   0:07
+13 Robotnik Win                     0:07   0:07
+14 Floor 4                          0:33   0:33
+15 Diamond Maze                     0:23   0:20
+16 Diamond Maze You Win             0:04   -
+17 Diamond Maze Robotnik Win        0:05   -
+18 Unused 1                         0:28   0:28
+19 Unused 2                         0:58   0:58
+
+Total Length                        7:13  13:34
+
+
+Notes:
+This game uses SMPS-68k.
+
+This is the US version of the pack. Japanese 
+version sounds much like these betas that drx 
+was dumped sometime ago, but the game makes use
+of uPD7759 to play some drums.
+
+
+Package history:
+1.00 2013-03-24 Sonic of 8!: Initial release.

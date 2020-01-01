@@ -1,0 +1,40 @@
+***********************************************
+* VGM music package                           *
+* http://vgmrips.net/                         *
+***********************************************
+Game name:           Maniac Mansion
+System:              Tandy 1000
+OS:                  DOS
+Music hardware:      NCR7496
+
+Music author:        Christopher Grigg,
+                     David Lawrence,
+                     David Hayes,
+                     David Warhol
+Game developer:      Lucasfilm Games
+Game publisher:      Lucasfilm Games
+Game release date:   1988 / 1989
+
+Package created by:  NewRisingSun
+Package version:     1.01
+
+Song list, in approximate game order:
+Song name                           Length:
+                                    Total  Loop
+01 Main Theme (Original Version)    1:35   -
+02 Piano Piece (Original Version)   0:28   -
+03 Old Record (Original Version)    0:02   0:01
+04 Main Theme (Enhanced Version)    1:01   -
+05 Piano Piece (Enhanced Version)   0:24   -
+06 Old Record (Enhanced Version)    0:04   -
+
+Total Length                        3:34   3:35
+
+
+Notes:
+-
+
+
+Package history:
+1.00 2017-01-06 NewRisingSun: Initial release.
+1.01 2017-02-12 Valley Bell: Fixed song 05.

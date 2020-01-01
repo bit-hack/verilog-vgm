@@ -1,0 +1,50 @@
+***********************************************
+* VGM music package                           *
+* http://vgmrips.net/                         *
+***********************************************
+Game name:           Journey to Silius
+                     (U, E, A) / Raf World (J)
+System:              Nintendo Entertainment
+                     System / Family Computer
+Music hardware:      NES APU (N2A03)
+
+Music author:        Naoki Kodaka
+Game developer:      Tokai Engineering
+Game publisher:      Sunsoft (U, E, J) /
+                     Mattel (A)
+Game release date:   1990-08-10
+
+Package created by:  2ch-H
+Package version:     1.00
+
+Song list, in approximate game order:
+Song name                           Length:
+                                    Total  Loop
+01 Title                            1:18   1:17
+02 Opening                          1:07   -
+03 Stage 1, Final Stage             1:07   0:56
+04 Stage 2                          3:42   3:24
+05 Stage 3                          0:51   0:51
+06 Stage 4                          1:11   0:51
+07 Boss Battle                      0:42   0:38
+08 Stage Clear                      0:05   -
+09 Ending                           1:23   -
+10 Game Over                        0:07   -
+11 Jingle 1                         0:03   -
+12 Jingle 2                         0:03   -
+
+Total Length                       11:39  19:37
+
+
+Notes:
+Track Names are used in
+ Rom Cassette Disc In SUNSOFT.
+
+This pack was made using MESS0148 VGM mod.
+
+Size reduction (vgm_cmp):
+    1.81 MB -> 842 KB  (45.4 %)
+
+
+Package history:
+1.00 2015-06-15 2ch-H: Initial release.

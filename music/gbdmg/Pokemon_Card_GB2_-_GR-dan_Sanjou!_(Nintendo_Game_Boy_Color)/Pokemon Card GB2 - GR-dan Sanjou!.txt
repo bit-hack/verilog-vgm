@@ -1,0 +1,51 @@
+***********************************************
+* VGM music package                           *
+* http://vgmrips.net/                         *
+***********************************************
+Game name:           Pokémon Card GB2: GR-dan
+                     Sanjō!
+System:              Nintendo Game Boy Color
+Music hardware:      Game Boy DMG (LR35902)
+
+Music author:        Ichiro Shimakura
+Game developer:      Hudson Soft
+Game publisher:      The Pokémon Company
+Game release date:   2001-03-28
+   
+Package created by:  Gnome
+Package version:     1.00
+
+Song list, in approximate game order:
+Song name                           Length:
+                                    Total  Loop
+01 Title Screen                     1:03   -
+02 Invasion of Team GR              1:16   0:53
+03 Duel vs. Team GR                 2:05   2:02
+04 To GR Island                     0:47   -
+05 GR Island                        1:51   0:57
+06 GR Grass Fort ~ GR Water Fort    1:03   1:02
+07 GR Lightning Fort ~ GR Psychic
+   Stronghold                       1:13   1:06
+08 GR Fire Fort ~ GR Fighting Fort  1:03   1:02
+09 Colorless Altar                  1:56   1:13
+10 GR Castle                        1:15   1:07
+11 Challenge Cup                    0:56   0:40
+12 Duel vs. Fortress Leader         1:59   1:56
+13 Mr. Ishihara's Villa             1:48   1:41
+14 Game Center                      0:58   0:58
+15 Imakuni?'s Theme                 1:02   1:02
+16 Final Duel vs. King Biruritchi   2:39   1:56
+17 Staff Roll                       3:43   -
+
+Total Length                       26:37  44:13
+
+
+Notes:
+Japan-exclusive sequel to Pokémon Trading Card
+Game. Unofficially named as "Pokémon Card GB2:
+Here Comes Team GR!" or "Pokémon Trading Card
+Game 2: The Invasion of Team GR!"
+
+
+Package history:
+1.00 2017-06-19 Gnome: Initial release.
