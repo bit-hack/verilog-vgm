@@ -119,7 +119,7 @@ module sn76489(
   reg [1:0] noise_shift;
   // '0' periodic noise '1' white noise
   reg noise_fb;
-  wire noise_clear = (posedge_wr && (in_val[7:4] == 4'b1110));
+  reg noise_clear;
 
   // output mix
   reg [15:0] mix_out;
@@ -158,6 +158,9 @@ module sn76489(
       c_amp[2] <= 4'h0;
       c_amp[3] <= 4'h0;
     end else begin
+
+      noise_clear <= (posedge_wr && (in_val[7:4] == 4'b1110));
+
       // on posedge of wr
       if (posedge_wr) begin
         // decode received byte

@@ -112,7 +112,7 @@ VL_MODULE(Vsn76489) {
   private:
     static IData	_change_request(Vsn76489__Syms* __restrict vlSymsp);
   public:
-    static void	_combo__TOP__6(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_combo__TOP__4(Vsn76489__Syms* __restrict vlSymsp);
     static void	_eval(Vsn76489__Syms* __restrict vlSymsp);
     static void	_eval_initial(Vsn76489__Syms* __restrict vlSymsp);
     static void	_eval_settle(Vsn76489__Syms* __restrict vlSymsp);
@@ -120,10 +120,9 @@ VL_MODULE(Vsn76489) {
     static void	_sequent__TOP__1(Vsn76489__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__2(Vsn76489__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__3(Vsn76489__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__4(Vsn76489__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__7(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__6(Vsn76489__Syms* __restrict vlSymsp);
     static void	_settle__TOP__5(Vsn76489__Syms* __restrict vlSymsp);
-    static void	_settle__TOP__8(Vsn76489__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__7(Vsn76489__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/

@@ -154,7 +154,7 @@ module nesapu(
   assign out_lr = mixer;
 
   wire [3:0] pulse0_env_out;
-  wire pulse0_env_start = posedge_wr && (in_reg == 'h3);
+  reg pulse0_env_start;
   nesapu_env pulse0_env(
     in_clk,
     in_rst,
@@ -168,7 +168,7 @@ module nesapu(
   );
 
   wire [3:0] pulse1_env_out;
-  reg pulse1_env_start = posedge_wr && (in_reg == 'h7);
+  reg pulse1_env_start;
   nesapu_env pulse1_env(
     in_clk,
     in_rst,
@@ -182,7 +182,7 @@ module nesapu(
   );
 
   wire [3:0] lfsr_env_out;
-  reg lfsr_env_start = posedge_wr && (in_reg == 'h3);
+  reg lfsr_env_start;
   nesapu_env lfsr_env(
     in_clk,
     in_rst,
@@ -215,6 +215,11 @@ module nesapu(
       frame_cnt <= 0;
 
     end else begin
+
+      // envelop re-triggers
+      pulse0_env_start <= posedge_wr && (in_reg == 'h3);
+      pulse1_env_start <= posedge_wr && (in_reg == 'h7);
+      lfsr_env_start   <= posedge_wr && (in_reg == 'hf);
 
       // on posedge of WR
       if (posedge_wr) begin

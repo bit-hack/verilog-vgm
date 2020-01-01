@@ -198,9 +198,6 @@ module gbdmg(
   initial $readmemh("gbdmg_dac.txt", AMP_TABLE);
 
   // internal registers
-  //
-  // 0x20 - 0x2F    32 4bit wave samples  (MSN first LSN second, etc)
-  //
   reg [7:0] r [64];
 
   // pulse channel 0
@@ -246,10 +243,10 @@ module gbdmg(
   reg [2:0] frame_seq;
 
   wire [15:0] mix_out =
-//    pulse0_mix +
+    pulse0_mix +
 //    pulse1_mix +
 //    wave_mix +
-    noise_mix +
+//    noise_mix +
     16'd0;
   assign out_lr = mix_out;
 
