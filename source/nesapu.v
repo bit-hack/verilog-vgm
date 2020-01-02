@@ -30,7 +30,7 @@ module nesapu_env(
 
   wire tick = (in_frame_cnt == 0) && (in_frame_step != 4);
 
-  always @(posedge in_clk, posedge in_start) begin
+  always @(posedge in_clk) begin
     if (in_rst) begin
       decay <= 4'h0;
       divider <= 4'd0;
@@ -64,6 +64,117 @@ module nesapu_env(
   end
 endmodule
 
+
+module nesapu_pulse(
+  input in_clk,
+  input in_rst,
+  input [1:0] in_duty,
+  input [10:0] in_freq,
+  output out_bit
+);
+
+  wire [31:0] duty = { 8'b10011111, 8'b01111000, 8'b01100000, 8'b01000000 };
+
+  reg [10:0] counter;
+  reg [3:0] index;
+
+  assign out_bit = duty[ { in_duty, index[3:1] } ];
+
+  always @(posedge in_clk) begin
+    if (in_rst) begin
+      counter <= 11'd0;
+      index <= 4'd0;
+    end else begin
+      if (counter == 'd0) begin
+        counter <= in_freq + 11'b1;
+        index <= index + 4'd1;
+      end else begin
+        counter <= counter - 11'd1;
+      end
+    end
+  end
+endmodule
+
+
+module nesapu_length(
+  input in_clk,
+  input in_rst,
+  input in_tick,
+  input in_reload,
+  input in_halt,
+  input [7:0] in_count,
+  output out_enable
+);
+  reg [7:0] count;
+  assign out_enable = count != 8'd0;
+
+  always @(posedge in_clk) begin
+    if (in_rst) begin
+      count <= 8'd0;
+    end else begin
+      if (in_reload) begin
+        count <= in_count;
+      end else begin
+        if (in_tick && !in_halt) begin
+          count <= (count == 8'd0) ? 8'd0 : (count - 8'd1);
+        end
+      end
+    end
+  end
+endmodule
+
+
+module nesapu_noise(
+  input in_clk,
+  input in_rst,
+  input in_reload,
+  input in_mode,
+  input [3:0] in_freq,
+  output out_bit);
+
+  reg [11:0] count;
+  reg [11:0] max_count;
+  reg [14:0] lfsr;
+
+  wire new_bit = lfsr[0] ^ (in_mode ? lfsr[6] : lfsr[1]);
+
+  assign out_bit = lfsr[0];
+
+  always @(posedge in_clk) begin
+    if (in_rst) begin
+      lfsr <= 15'h1;
+    end else begin
+      case (in_freq)
+      'h0: max_count <= 12'd4;
+      'h1: max_count <= 12'd8;
+      'h2: max_count <= 12'd16;
+      'h3: max_count <= 12'd32;
+      'h4: max_count <= 12'd64;
+      'h5: max_count <= 12'd96;
+      'h6: max_count <= 12'd128;
+      'h7: max_count <= 12'd160;
+      'h8: max_count <= 12'd202;
+      'h9: max_count <= 12'd254;
+      'ha: max_count <= 12'd380;
+      'hb: max_count <= 12'd508;
+      'hc: max_count <= 12'd762;
+      'hd: max_count <= 12'd1016;
+      'he: max_count <= 12'd2034;
+      'hf: max_count <= 12'd4068;
+      endcase
+
+      if (count == 'd0) begin
+        count <= max_count;
+        lfsr <= { new_bit, lfsr[14:1] };
+      end else begin
+        count <= count - 'd1;
+      end
+
+    end
+  end
+
+endmodule
+
 module nesapu(
   input in_clk,
   input in_rst,
@@ -94,38 +205,29 @@ module nesapu(
   wire tri_enable    = apu_reg[ 'h15 ][2];
   wire noise_enable  = apu_reg[ 'h15 ][3];
 
-  // pulse 0 channel
+  wire [1:0]  pulse0_duty = apu_reg[0][7:6];
   wire [3:0]  pulse0_vol  = apu_reg[0][3:0];
   wire [10:0] pulse0_freq = { apu_reg[3][2:0], apu_reg[2] };
-  reg [10:0] pulse0_int;  // internal counter
-  reg [7:0] pulse0_seq;
-  reg pulse0_bit;
-  reg [7:0] pulse0_length;
-  wire [7:0] pulse0_length_next = (pulse0_length == 0) ? 8'd0 : (pulse0_length - 8'd1);
 
-  // pulse 1 channel
+  wire [1:0]  pulse1_duty = apu_reg[4][7:6];
   wire [3:0]  pulse1_vol  = apu_reg[4][3:0];
   wire [10:0] pulse1_freq = { apu_reg[7][2:0], apu_reg[6] };
-  reg [10:0] pulse1_int;  // internal counter
-  reg [7:0] pulse1_seq;
-  reg pulse1_bit;
-  reg [7:0] pulse1_length;
-  wire [7:0] pulse1_length_next = (pulse1_length == 0) ? 8'd0 : (pulse1_length - 8'd1);
+
+  wire pulse0_bit, pulse1_bit;
+  nesapu_pulse pulse0(in_clk, in_rst, pulse0_duty, pulse0_freq, pulse0_bit);
+  nesapu_pulse pulse1(in_clk, in_rst, pulse1_duty, pulse1_freq, pulse1_bit);
 
   // triangle channel
   wire [10:0] tri_freq = { apu_reg['hb][2:0], apu_reg['ha] };
   reg [10:0] tri_int;  // internal counter
   reg [4:0] tri_step;
-  reg [7:0] tri_length;
-  wire [7:0] tri_length_next = (tri_length == 0) ? 8'd0 : (tri_length - 8'd1);
 
   // noise channel
-  wire [3:0] lfsr_vol = apu_reg['hc][3:0];
   wire lfsr_mode = apu_reg[ 'he ][7];
-  reg [14:0] lfsr;
-  wire lfsr_in = lfsr[0] ^ lfsr[1];
-  reg [7:0] lfsr_length;
-  wire [7:0] lfsr_length_next = (lfsr_length == 0) ? 8'd0 : (lfsr_length - 8'd1);
+  wire [3:0] lfsr_vol = apu_reg['hc][3:0];
+  wire [3:0] lfsr_freq = apu_reg['he][3:0];
+  wire noise_bit;
+  nesapu_noise noise(in_clk, in_rst, 0, lfsr_mode, lfsr_freq, noise_bit);
 
   // internal clock divider
   reg [7:0] clk_div;
@@ -135,15 +237,15 @@ module nesapu(
   reg [4:0] frame_step;
   wire frame_mode = apu_reg['h17][7];
 
-  wire [15:0] pulse0_out = AMP_TABLE[ { pulse0_seq[0], pulse0_env_out } ];
-  wire [15:0] pulse1_out = AMP_TABLE[ { pulse1_seq[0], pulse1_env_out } ];
+  wire [15:0] pulse0_out = AMP_TABLE[ { pulse0_bit, pulse0_env_out } ];
+  wire [15:0] pulse1_out = AMP_TABLE[ { pulse1_bit, pulse1_env_out } ];
   wire [7:0] tri_out = TRI_TABLE[ tri_step ];
-  wire [15:0] lfsr_out = AMP_TABLE[ { lfsr[0], lfsr_env_out } ];
+  wire [15:0] lfsr_out = AMP_TABLE[ { noise_bit, lfsr_env_out } ];
 
-  wire pulse0_mute = (pulse0_enable == 0) || (pulse0_length == 0);
-  wire pulse1_mute = (pulse1_enable == 0) || (pulse1_length == 0);
-  wire    tri_mute =    (tri_enable == 0) ||    (tri_length == 0);
-  wire   lfsr_mute =  (noise_enable == 0) ||   (lfsr_length == 0);
+  wire pulse0_mute = (~pulse0_enable || ~len0_on);
+  wire pulse1_mute = (~pulse1_enable || ~len1_on);
+  wire    tri_mute = (~tri_enable    || ~len2_on);
+  wire   lfsr_mute = (~noise_enable  || ~len3_on);
 
   wire [15:0] mixer =
     (pulse0_mute ? 16'h0 : pulse0_out) +
@@ -195,21 +297,23 @@ module nesapu(
     lfsr_env_out
   );
 
-  wire posedge_wr = (in_wr == 1'b1) && (old_wr == 1'b0);
+  reg tick_len;
+  reg reload_len0, reload_len1, reload_len2, reload_len3;
+  wire len0_on, len1_on, len2_on, len3_on;
+  nesapu_length len0(in_clk, in_rst, tick_len, reload_len0, apu_reg['h00][5], LEN_TABLE[apu_reg['h3][7:3]], len0_on); // pulse0
+  nesapu_length len1(in_clk, in_rst, tick_len, reload_len1, apu_reg['h04][5], LEN_TABLE[apu_reg['h7][7:3]], len1_on); // pulse1
+  nesapu_length len2(in_clk, in_rst, tick_len, reload_len2, apu_reg['h08][7], LEN_TABLE[apu_reg['hb][7:3]], len2_on); // tri
+  nesapu_length len3(in_clk, in_rst, tick_len, reload_len3, apu_reg['h0c][5], LEN_TABLE[apu_reg['hf][7:3]], len3_on); // noise
 
-  wire [7:0] in_timer = LEN_TABLE[ in_val[ 7:3 ] ];
+
+  wire posedge_wr = (in_wr == 1'b1) && (old_wr == 1'b0);
 
   always @(posedge in_clk) begin
 
     if (in_rst) begin
 
-      pulse0_seq <= 8'b01111000;
-      pulse1_seq <= 8'b01111000;
-
       apu_reg[ 'h15 ] <= 8'hff;
       apu_reg[ 'h0e ] <= 8'h80;
-
-      lfsr <= 15'b1;
 
       frame_step <= 5'b00001;
       frame_cnt <= 0;
@@ -221,67 +325,31 @@ module nesapu(
       pulse1_env_start <= posedge_wr && (in_reg == 'h7);
       lfsr_env_start   <= posedge_wr && (in_reg == 'hf);
 
+      reload_len0 <= posedge_wr && (in_reg == 'h03); // pulse0
+      reload_len1 <= posedge_wr && (in_reg == 'h07); // pulse1
+      reload_len2 <= posedge_wr && (in_reg == 'h0b); // tri
+      reload_len3 <= posedge_wr && (in_reg == 'h0f); // noise
+
       // on posedge of WR
       if (posedge_wr) begin
-
         // update internal register
         apu_reg[ in_reg ] <= in_val;
+      end
 
-        // update length counters
-        case (in_reg)
-        'h3: pulse0_length <= in_timer;
-        'h7: pulse1_length <= in_timer;
-        'hb: tri_length <= in_timer;
-        'hf: lfsr_length <= in_timer;
-        endcase
+      tick_len <= (frame_cnt == 0 && (frame_step == 1 || frame_step == 4));
+
+      if (frame_cnt == 0) begin
+
+        // update at 240hz
+        frame_cnt <= 12'd7457;
+
+        // tick the frame counter
+        // 4 3 2 1  0
+        // 3 2 1 0 3/4
+        frame_step <= { frame_step[3:0], frame_mode ? frame_step[3] : frame_step[4] };
 
       end else begin
-
-        if (frame_cnt == 0) begin
-
-          // update at 240hz
-          frame_cnt <= 12'd7457;
-
-          if (frame_step == 1 || frame_step == 4) begin
-            pulse0_length <= pulse0_length_next;
-            pulse1_length <= pulse1_length_next;
-            tri_length    <= tri_length_next;
-            lfsr_length   <= lfsr_length_next;
-          end
-
-          // tick the frame counter
-          // 4 3 2 1  0
-          // 3 2 1 0 3/4
-          frame_step <= 
-            (frame_step == 0) ? 5'b1 :
-            { frame_step[3:0], frame_mode ? frame_step[3] : frame_step[4] };
-        end
-      else
         frame_cnt <= frame_cnt - 12'd1;
-      end
-
-      if (clk_div[0] == 0) begin
-
-        // update tone channel 0
-        if (pulse0_int == 0) begin
-          pulse0_int <= pulse0_freq + 11'b1;
-          pulse0_seq <= { pulse0_seq[0], pulse0_seq[7:1] };
-        end else begin
-          pulse0_int <= pulse0_int - 11'd1;
-        end
-
-        // update tone channel 1
-        if (pulse1_int == 0) begin
-          pulse1_int <= pulse1_freq + 11'b1;
-          pulse1_seq <= { pulse1_seq[0], pulse1_seq[7:1] };
-        end else begin
-          pulse1_int <= pulse1_int - 11'd1;
-        end
-      end
-
-      if (clk_div[3:0] == 0) begin
-        // update lfsr
-        lfsr <= { lfsr_in, lfsr[14:1] }; 
       end
 
       // update tone triangle

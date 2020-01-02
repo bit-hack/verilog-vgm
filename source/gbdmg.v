@@ -1,6 +1,7 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
+
 module gbdmg_pulse(
   input in_clk,
   input in_rst,
@@ -100,13 +101,15 @@ module gbdm_envelope(
   input [2:0] in_period,
   input in_dir,
   input in_trigger,
-  input in_tick,
+  input in_tick, // 64Hz
   output [3:0] out_value);
 
   reg [3:0] value;
   assign out_value = value;
 
   reg [2:0] clk_div;
+
+  wire will_tick = in_tick && (in_period != 'd0);
 
   always @(posedge in_clk, posedge in_trigger) begin
     if (in_rst) begin
@@ -117,18 +120,46 @@ module gbdm_envelope(
         value <= in_vol;
         clk_div <= in_period;
       end else begin
-        if (in_tick) begin
+        if (will_tick) begin
           if (clk_div == 3'd0) begin
             clk_div <= in_period;
             if (in_dir) begin
-              value <= (value == 4'h0) ? value : value + 4'd1;
+              value <= (value == 4'hf) ? value : value + 4'd1;
             end else begin
-              value <= (value == 4'hf) ? value : value - 4'd1;
+              value <= (value == 4'h0) ? value : value - 4'd1;
             end
           end else begin
             clk_div <= clk_div - 3'd1;
           end
         end
+      end
+    end
+  end
+endmodule
+
+
+module gbdmg_length(
+  input in_clk,
+  input in_rst,
+  input [5:0] in_length,
+  input in_tick,  // 256Hz
+  input in_trigger,
+  input in_enable,
+  output out_enable);
+
+  reg [5:0] counter;
+
+  wire not_zero = counter != 6'd0;
+  assign out_enable = not_zero || ~in_enable;
+
+  always @(posedge in_clk) begin
+    if (in_rst) begin
+      counter <= 6'd0;
+    end else begin
+      if (in_trigger) begin
+        counter <= in_length;
+      end else begin
+        counter <= (in_tick && not_zero) ? (counter + 6'd1) : counter;
       end
     end
   end
@@ -220,7 +251,7 @@ module gbdmg(
   wire [4:0] wave_addr;
   gbdmg_wave_mem wave_mem(r[47:32], wave_addr, wave_out);
   gbdmg_wave wave(in_clk, in_rst, wave_freq, wave_addr);
-  wire [15:0] wave_mix_int = ({ 2'd0, wave_out[3:0], 10'd0 } - 16'h2000);
+  wire [15:0] wave_mix_int = ({ 3'd0, wave_out[3:0], 9'd0 } - 16'h2000);
   wire wave_mix_sign = wave_mix_int[15];
   // wave volume computation
   // TODO: use sign extending shifts instead
@@ -236,17 +267,25 @@ module gbdmg(
   gbdmg_noise noise(in_clk, in_rst, r['h12][7:4], r['h12][2:0], r['h12][3], noise_bit);
   wire [15:0] noise_mix = AMP_TABLE[ { noise_bit, env2_value } ];
 
+  // length counter channel 0
+  wire len0_on;
+  gbdmg_length len0(in_clk, in_rst, r['h01][5:0], tick_len_cnt, trigger_len0, r['h04][6], len0_on);
+
+  // length counter channel 1
+  wire len1_on;
+  gbdmg_length len1(in_clk, in_rst, r['h06][5:0], tick_len_cnt, trigger_len0, r['h09][6], len1_on);
+
   reg wr_old;
   wire wr_posedge = ((in_wr == 1'b1) && (wr_old == 1'b0));
 
-  reg [9:0] frame_clk_div;
+  reg [13:0] frame_clk_div;
   reg [2:0] frame_seq;
 
   wire [15:0] mix_out =
-    pulse0_mix +
-//    pulse1_mix +
-//    wave_mix +
-//    noise_mix +
+    (len0_on ? pulse0_mix : 16'd0) +
+    (len1_on ? pulse1_mix : 16'd0) +
+    wave_mix +
+    noise_mix +
     16'd0;
   assign out_lr = mix_out;
 
@@ -260,12 +299,12 @@ module gbdmg(
   // 5
   // 6  clock             clock
   // 7           clock
-  wire tick_len_cnt = (frame_clk_div == 0) && (frame_seq[0] == 0);
-  wire tick_env     = (frame_clk_div == 0) && (frame_seq == 3'd7);
-  wire tick_sweep   = (frame_clk_div == 0) && (frame_seq == 3'd2 ||
-                                               frame_seq == 3'd6);
+  wire tick_len_cnt = (frame_clk_div == 14'd0) && (frame_seq[0] == 0);
+  wire tick_env     = (frame_clk_div == 14'd0) && (frame_seq == 3'd7);
+  wire tick_sweep   = (frame_clk_div == 14'd0) && (frame_seq == 3'd2 || frame_seq == 3'd6);
 
   reg trigger_env0, trigger_env1, trigger_env2;
+  reg trigger_len0, trigger_len1, trigger_len2;
 
   wire [3:0] env0_value;
   wire [3:0] env1_value;
@@ -279,6 +318,12 @@ module gbdmg(
       // on reset
     end else begin
 
+      // length counter triggers
+      trigger_len0 <= wr_posedge && (in_reg == 'h01);
+      trigger_len1 <= wr_posedge && (in_reg == 'h12);
+      trigger_len2 <= wr_posedge && (in_reg == 'h1b);
+
+      // envelope triggers
       trigger_env0 <= wr_posedge && (in_reg == 'h04) && (in_val[7]);
       trigger_env1 <= wr_posedge && (in_reg == 'h09) && (in_val[7]);
       trigger_env2 <= wr_posedge && (in_reg == 'h13) && (in_val[7]);
@@ -291,11 +336,11 @@ module gbdmg(
   end
 
   always @(posedge in_clk) begin
-    if (frame_clk_div == 10'd0) begin
-      frame_clk_div <= 10'd781;
+    if (frame_clk_div == 0) begin
+      frame_clk_div <= 14'd8192;  // 4194304 / 512
       frame_seq <= frame_seq + 3'd1;
     end else begin
-      frame_clk_div <= frame_clk_div - 10'd1;
+      frame_clk_div <= frame_clk_div - 14'd1;
     end
   end
 

@@ -18,11 +18,11 @@
 #define MCLK  clk_sn76489
 #define CHIP  sn76489
 #endif
-#if 0
+#if 1
 #define MCLK  clk_nesapu
 #define CHIP  nesapu
 #endif
-#if 1
+#if 0
 #define MCLK  clk_gbdmg
 #define CHIP  gbdmg
 #endif
@@ -97,37 +97,35 @@ struct vgm_stream_ext_t: public vgm_stream_t {
   }
 };
 
-int main(int argc, char **args) {
+#define ROOT_DIR "D:/repos/verilog-vgm/"
 
-  // create our chip
-  CHIP.in_clk = 1;
-  CHIP.in_rst = 0;
-  CHIP.in_wr  = 0;
+int main(int argc, char **args) {
 
   // create vgm stream
   vgm_t vgm;
   if (!vgm.load(
     // YM2149
-//    "C:/repos/vgmplayer/music/Metal_Gear_(MSX2)/08 Return of Fox Hounder"
-//    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/04 Wicked Child"
-//    "C:/repos/vgmplayer/music/Vampire_Killer_(MSX2)/12 Nothing to Lose"
-//    "C:/repos/vgmplayer/music/Herzog_(Sharp_X1_Turbo,_PSG)/05 Back to Square One (Stage 1 Mercie)"
-//    "C:/repos/vgmverilator/music/ym2149/Penguin_Adventure_(MSX)/03 Forest Path"
+//    ROOT_DIR "music/ym2149/Metal_Gear_(MSX2)/02 Operation Intrude N313 ~ Theme of Tara"
+//    ROOT_DIR "music/Vampire_Killer_(MSX2)/04 Wicked Child"
+//    ROOT_DIR "music/Vampire_Killer_(MSX2)/12 Nothing to Lose"
+//    ROOT_DIR "music/Herzog_(Sharp_X1_Turbo,_PSG)/05 Back to Square One (Stage 1 Mercie)"
+//    ROOT_DIR "music/ym2149/Penguin_Adventure_(MSX)/03 Forest Path"
 
     // SN76489
-//    "C:/repos/vgmplayer/music/Zeliard_(Tandy_1000)/10 World of Ice"
-//    "C:/repos/vgmverilator/music/sn76489/Sonic_the_Hedgehog's_GameWorld_(Sega_Pico)/14 Floor 4"
-//    "C:/repos/vgmverilator/music/sn76489/Budokan_-_The_Martial_Spirit_(Tandy_1000)/04 Interlude"
-//    "C:/repos/vgmverilator/music/sn76489/Maniac_Mansion_(Tandy_1000)/04 Main Theme (Enhanced Version)"
+//    ROOT_DIR "music/Zeliard_(Tandy_1000)/10 World of Ice"
+//    ROOT_DIR "music/sn76489/Sonic_the_Hedgehog's_GameWorld_(Sega_Pico)/14 Floor 4"
+//    ROOT_DIR "music/sn76489/Budokan_-_The_Martial_Spirit_(Tandy_1000)/04 Interlude"
+//    ROOT_DIR "music/sn76489/Maniac_Mansion_(Tandy_1000)/04 Main Theme (Enhanced Version)"
 
     // NESAPU
-//    "C:/repos/vgmverilator/music/nesapu/Mega_Man_2_(NES)/25 Credit Roll"
-//    "C:/repos/vgmverilator/music/nesapu/Castlevania_(NES)/06 Heart of Fire"
-//    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/01 Running About"
-//    "C:/repos/vgmverilator/music/nesapu/Super_Mario_Bros._(NES)/03 Swimming Around"
+//    ROOT_DIR "music/nesapu/Mega_Man_2_(NES)/24 Ending"
+//    ROOT_DIR "music/nesapu/Castlevania_(NES)/05 Walking On the Edge"
+//    ROOT_DIR "music/nesapu/Super_Mario_Bros._(NES)/01 Running About"
+    ROOT_DIR "music/nesapu/Journey_to_Silius_(NES)/04 Stage 2"
 
     // GBDMG
-    "C:/repos/vgmverilator/music/gbdmg/Pokemon_Card_GB2_-_GR-dan_Sanjou!_(Nintendo_Game_Boy_Color)/05 GR Island"
+//    ROOT_DIR "music/gbdmg/Pokemon_Trading_Card_Game_(Game_Boy_Color)/16 Ronald's Theme"
+//    ROOT_DIR "music/gbdmg/RoboCop_(Nintendo_Game_Boy)/04 Missions 3, 6 and 9"
   )) {
     return 1;
   }
@@ -137,13 +135,18 @@ int main(int argc, char **args) {
   const uint64_t clk_ay8910  = vgm_hdr.clock_AY8910();
   const uint64_t clk_sn76489 = vgm_hdr.clock_SN76489();
   const uint64_t clk_nesapu  = vgm_hdr.clock_NESAPU();
-  const uint64_t clk_gbdmg   = vgm_hdr.clock_GBDMG();
+  const uint64_t clk_gbdmg   = vgm_hdr.clock_GBDMG();  // 4194304
 
   // counter for output samples
   uint64_t counter_smp = 0;
 
   // number of samples rendered
   uint64_t samples_done = 0;
+
+  // setup our chip
+  CHIP.in_clk = 0;
+  CHIP.in_rst = 0;
+  CHIP.in_wr  = 0;
 
   // reset the chip
   for (int i = 0; i < 16; ++i) {

@@ -36,29 +36,69 @@ VL_MODULE(Vgbdmg) {
     VL_SIG8(v__DOT__trigger_env1,0,0);
     VL_SIG8(v__DOT__trigger_env2,0,0);
     VL_SIG8(v__DOT__pulse0_duty,1,0);
+    VL_SIG8(v__DOT__pulse1_duty,1,0);
+    VL_SIG8(v__DOT__wave_out,3,0);
+    VL_SIG8(v__DOT__wave_vol,1,0);
     VL_SIG8(v__DOT__wr_old,0,0);
     VL_SIG8(v__DOT__wr_posedge,0,0);
     VL_SIG8(v__DOT__frame_seq,2,0);
+    VL_SIG8(v__DOT__tick_len_cnt,0,0);
     VL_SIG8(v__DOT__tick_env,0,0);
+    VL_SIG8(v__DOT__trigger_len0,0,0);
     VL_SIG8(v__DOT__pulse0__DOT__clk_div,1,0);
     VL_SIG8(v__DOT__pulse0__DOT__duty,7,0);
     VL_SIG8(v__DOT__pulse0__DOT__old_duty,1,0);
     VL_SIG8(v__DOT__pulse0__DOT__reload_duty,0,0);
+    VL_SIG8(v__DOT__pulse1__DOT__clk_div,1,0);
+    VL_SIG8(v__DOT__pulse1__DOT__duty,7,0);
+    VL_SIG8(v__DOT__pulse1__DOT__old_duty,1,0);
+    VL_SIG8(v__DOT__pulse1__DOT__reload_duty,0,0);
+    VL_SIG8(v__DOT__wave__DOT__clk_div,0,0);
+    VL_SIG8(v__DOT__wave__DOT__wave_addr,4,0);
+    VL_SIG8(v__DOT__noise__DOT__xor_bit,0,0);
+    VL_SIG8(v__DOT__len0__DOT__counter,5,0);
+    VL_SIG8(v__DOT__len1__DOT__counter,5,0);
     VL_SIG8(v__DOT__env0__DOT__value,3,0);
     VL_SIG8(v__DOT__env0__DOT__clk_div,2,0);
+    VL_SIG8(v__DOT__env1__DOT__value,3,0);
+    VL_SIG8(v__DOT__env1__DOT__clk_div,2,0);
+    VL_SIG8(v__DOT__env2__DOT__value,3,0);
+    VL_SIG8(v__DOT__env2__DOT__clk_div,2,0);
     VL_SIG16(v__DOT__pulse0_freq,10,0);
     VL_SIG16(v__DOT__pulse0_mix,15,0);
-    VL_SIG16(v__DOT__frame_clk_div,9,0);
+    VL_SIG16(v__DOT__pulse1_freq,10,0);
+    VL_SIG16(v__DOT__pulse1_mix,15,0);
+    VL_SIG16(v__DOT__wave_freq,10,0);
+    VL_SIG16(v__DOT__noise_mix,15,0);
+    VL_SIG16(v__DOT__frame_clk_div,13,0);
     VL_SIG16(v__DOT__pulse0__DOT__counter,10,0);
-    //char	__VpadToAlign34[6];
+    VL_SIG16(v__DOT__pulse1__DOT__counter,10,0);
+    VL_SIG16(v__DOT__wave__DOT__counter,10,0);
+    VL_SIG16(v__DOT__noise__DOT__period_dec,10,0);
+    VL_SIG16(v__DOT__noise__DOT__counter,10,0);
+    VL_SIG16(v__DOT__noise__DOT__lfsr,14,0);
+    //char	__VpadToAlign70[2];
     VL_SIG16(v__DOT__AMP_TABLE[32],15,0);
     VL_SIG8(v__DOT__r[64],7,0);
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
+    VL_SIG8(v__DOT____Vcellinp__noise____pinNumber5,0,0);
+    VL_SIG8(v__DOT____Vcellinp__noise____pinNumber4,2,0);
+    VL_SIG8(v__DOT____Vcellinp__noise____pinNumber3,3,0);
+    VL_SIG8(v__DOT____Vcellinp__len0____pinNumber6,0,0);
+    VL_SIG8(v__DOT____Vcellinp__len0____pinNumber3,5,0);
+    VL_SIG8(v__DOT____Vcellinp__len1____pinNumber6,0,0);
+    VL_SIG8(v__DOT____Vcellinp__len1____pinNumber3,5,0);
     VL_SIG8(v__DOT____Vcellinp__env0____pinNumber5,0,0);
     VL_SIG8(v__DOT____Vcellinp__env0____pinNumber4,2,0);
     VL_SIG8(v__DOT____Vcellinp__env0____pinNumber3,3,0);
+    VL_SIG8(v__DOT____Vcellinp__env1____pinNumber5,0,0);
+    VL_SIG8(v__DOT____Vcellinp__env1____pinNumber4,2,0);
+    VL_SIG8(v__DOT____Vcellinp__env1____pinNumber3,3,0);
+    VL_SIG8(v__DOT____Vcellinp__env2____pinNumber5,0,0);
+    VL_SIG8(v__DOT____Vcellinp__env2____pinNumber4,2,0);
+    VL_SIG8(v__DOT____Vcellinp__env2____pinNumber3,3,0);
     VL_SIG8(__Vdlyvset__v__DOT__r__v0,0,0);
     VL_SIG8(__VinpClk__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__VinpClk__TOP__v__DOT__trigger_env2,0,0);
@@ -70,10 +110,12 @@ VL_MODULE(Vgbdmg) {
     VL_SIG8(__Vchglast__TOP__v__DOT__trigger_env0,0,0);
     VL_SIG8(__Vchglast__TOP__v__DOT__trigger_env1,0,0);
     VL_SIG8(__Vchglast__TOP__v__DOT__trigger_env2,0,0);
-    //char	__VpadToAlign186[2];
+    //char	__VpadToAlign231[1];
+    VL_SIG8(v__DOT____Vcellinp__wave_mem____pinNumber1[16],7,0);
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
+    //char	__VpadToAlign252[4];
     Vgbdmg__Syms*	__VlSymsp;		// Symbol table
     
     // PARAMETERS
@@ -112,12 +154,15 @@ VL_MODULE(Vgbdmg) {
     static void	_eval_initial(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_eval_settle(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_initial__TOP(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_multiclk__TOP__10(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__1(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__2(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__3(Vgbdmg__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__8(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__4(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__6(Vgbdmg__Syms* __restrict vlSymsp);
     static void	_sequent__TOP__9(Vgbdmg__Syms* __restrict vlSymsp);
-    static void	_settle__TOP__4(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__5(Vgbdmg__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__8(Vgbdmg__Syms* __restrict vlSymsp);
 } VL_ATTR_ALIGNED(128);
 
 #endif  /*guard*/
